@@ -8,8 +8,8 @@ const [reactDev, reactDomDev, react, reactDom] = await Promise.all([
   fetch(`https://unpkg.com/react-dom@${version}/umd/react-dom.production.min.js`).then((r) => r.text()),
 ]);
 
-const devPluginPath = 'dist/plugins/linonetwo/react-lib-dev';
-const pluginPath = 'dist/plugins/linonetwo/react-lib';
+const devPluginPath = 'dist/plugins/linonetwo/tw-react-dev';
+const pluginPath = 'dist/plugins/linonetwo/tw-react';
 await Promise.all([fs.mkdirp(devPluginPath), fs.mkdirp(pluginPath)]);
 await Promise.all([
   fs.writeFile(path.join(devPluginPath, 'react.js'), reactDev),

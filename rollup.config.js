@@ -8,13 +8,13 @@ export default {
   input: 'src/widget.ts',
   output: [
     {
-      file: './dist/plugins/linonetwo/react-lib/widget.js',
+      file: './dist/plugins/linonetwo/tw-react/widget.js',
       format: 'commonjs',
       sourcemap: 'inline',
       exports: 'named',
     },
     {
-      file: './dist/plugins/linonetwo/react-lib-dev/widget.js',
+      file: './dist/plugins/linonetwo/tw-react-dev/widget.js',
       format: 'commonjs',
       sourcemap: 'inline',
       exports: 'named',
