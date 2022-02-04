@@ -4,7 +4,7 @@ import type * as ReactDomType from 'react-dom';
 type ReactDomType = typeof ReactDomType;
 
 const Widget = require('$:/core/modules/widgets/widget.js').widget;
-const ReactDom: ReactDomType = require('$:/plugins/linonetwo/tw-react/react-dom.js');
+const ReactDom: ReactDomType = require('react-dom');
 
 class ReactWidget extends Widget {
   protected reactComponent: ReactType.DOMElement<ReactType.DOMAttributes<Element>, Element> | null = null;

@@ -1,6 +1,6 @@
 const Widget = require('$:/plugins/linonetwo/tw-react/widget.js').widget;
-const React = require('$:/plugins/linonetwo/tw-react/react.js');
-const ReactDom = require('$:/plugins/linonetwo/tw-react/react-dom.js');
+const React = require('react');
+const ReactDom = require('react-dom');
 
 const e = React.createElement;
 
