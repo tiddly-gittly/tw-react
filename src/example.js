@@ -15,15 +15,11 @@ class LikeButton extends React.Component {
       return 'You liked this.';
     }
 
-    return e(
-      'button',
-      { onClick: () => this.setState({ liked: true }) },
-      'Like'
-    );
+    return e('button', { onClick: () => this.setState({ liked: true }) }, 'Like');
   }
 }
 
 class LikeButtonWidget extends Widget {
-
+  reactComponent = LikeButton;
 }
 exports.likeButtonExampleWidget = LikeButtonWidget;
