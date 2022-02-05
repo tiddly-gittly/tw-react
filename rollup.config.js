@@ -4,22 +4,7 @@ import json from '@rollup/plugin-json';
 import typescript from '@rollup/plugin-typescript';
 import disablePackages from 'rollup-plugin-disable-packages';
 
-export default {
-  input: 'src/widget.ts',
-  output: [
-    {
-      file: './dist/plugins/linonetwo/tw-react/widget.js',
-      format: 'commonjs',
-      sourcemap: 'inline',
-      exports: 'named',
-    },
-    {
-      file: './dist/plugins/linonetwo/tw-react-dev/widget.js',
-      format: 'commonjs',
-      sourcemap: 'inline',
-      exports: 'named',
-    },
-  ],
+const shared = {
   external: ['events', 'fs', 'fsevents', 'util', 'path', 'os', 'stream'],
   plugins: [
     nodeResolve({ browser: true }),
@@ -33,3 +18,23 @@ export default {
     disablePackages('fsevents'),
   ],
 };
+
+const fileNames = ['widget', 'example'];
+export default fileNames.map((name) => ({
+  input: `src/${name}.ts`,
+  output: [
+    {
+      file: `./dist/plugins/linonetwo/tw-react/${name}.js`,
+      format: 'commonjs',
+      sourcemap: 'inline',
+      exports: 'named',
+    },
+    {
+      file: `./dist/plugins/linonetwo/tw-react-dev/${name}.js`,
+      format: 'commonjs',
+      sourcemap: 'inline',
+      exports: 'named',
+    },
+  ],
+  ...shared,
+}));

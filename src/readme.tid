@@ -2,4 +2,4 @@ title: $:/plugins/linonetwo/tw-react/readme
 creator: LinOnetwo
 type: text/vnd.tiddlywiki
 
-<$likeButtonExampleWidget />
+<$likeButtonExampleWidget stateTiddler="$:/state/tw-react/readme/like-button" />

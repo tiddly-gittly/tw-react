@@ -7,7 +7,11 @@ const Widget = require('$:/core/modules/widgets/widget.js').widget;
 const ReactDom: ReactDomType = require('react-dom');
 const React: ReactType = require('react');
 
-class ReactWidget extends Widget {
+export class ReactWidget extends Widget {
+  constructor(parseTreeNode: any, options: any) {
+    super(parseTreeNode, options);
+  }
+
   protected reactComponent:
     | ReactType.ClassType<any, ReactType.ClassicComponent<any, ReactType.ComponentState>, ReactType.ClassicComponentClass<any>>
     | ReactType.FunctionComponent<any>
@@ -23,13 +27,10 @@ class ReactWidget extends Widget {
       return;
     }
     this.computeAttributes();
+    const stateTiddler: string | undefined = this.getAttribute('stateTiddler');
 
     const containerElement = document.createElement('div');
-    ReactDom.render(React.createElement(this.reactComponent, {}), containerElement);
-    // DEBUG: console
-    console.log(`this.reactComponent`, this.reactComponent);
-    // DEBUG: console
-    console.log(`containerElement`, containerElement);
+    ReactDom.render(React.createElement(this.reactComponent, { stateTiddler }), containerElement);
     this.domNodes.push(containerElement);
     parent.appendChild(containerElement);
   }
