@@ -2,7 +2,7 @@
   "description": "npm scripts to build plugins",
   "license": "MIT",
   "name": "tw-react",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "url": "https://github.com/tiddly-gittly/tw-react",
   "author": "Lin Onetwo",
   "scripts": {
@@ -12,7 +12,8 @@
     "download-react": "zx scripts/download-react.mjs",
     "buildJSON": "zx scripts/buildJSONPlugins.mjs",
     "zip": "zx scripts/zipDist.mjs",
-    "build": "rollup -c && zx scripts/after-build.mjs"
+    "build": "rollup -c && zx scripts/after-build.mjs",
+    "prepublishOnly": "npm run make"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.1",
