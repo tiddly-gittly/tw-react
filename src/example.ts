@@ -48,5 +48,6 @@ class LikeButton extends React.Component<IProps, IState> {
 
 class LikeButtonWidget extends Widget {
   reactComponent = LikeButton;
+  getProps = () => ({ stateTiddler: this.getAttribute('stateTiddler') });
 }
 exports.likeButtonExampleWidget = LikeButtonWidget;

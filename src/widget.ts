@@ -17,6 +17,8 @@ export class ReactWidget extends Widget {
     | ReactType.FunctionComponent<any>
     | null = null;
 
+  protected getProps: () => any = () => ({});
+
   /**
    * Lifecycle method: Render this widget into the DOM
    */
@@ -27,10 +29,10 @@ export class ReactWidget extends Widget {
       return;
     }
     this.computeAttributes();
-    const stateTiddler: string | undefined = this.getAttribute('stateTiddler');
+    const currentProps = this.getProps();
 
     const containerElement = document.createElement('div');
-    ReactDom.render(React.createElement(this.reactComponent, { stateTiddler }), containerElement);
+    ReactDom.render(React.createElement(this.reactComponent, currentProps), containerElement);
     this.domNodes.push(containerElement);
     parent.appendChild(containerElement);
   }
