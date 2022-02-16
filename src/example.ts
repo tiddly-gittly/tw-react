@@ -6,6 +6,7 @@ type ReactType = typeof ReactType;
 import type * as ReactDomType from 'react-dom';
 type ReactDomType = typeof ReactDomType;
 
+// TODO: use rollup external instead
 const ReactDom: ReactDomType = require('react-dom');
 const React: ReactType = require('react');
 
