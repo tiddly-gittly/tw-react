@@ -1,5 +1,6 @@
 import type { ReactWidget as ReactWidgetType } from './widget';
 // use `typeof` to avoid "Type 'ReactWidget' is not a constructor function type.ts(2507)"
+// `const Widget = require('$:/plugins/linonetwo/tw-react/widget.js').widget as typeof ReactWidget;` in user side, after `npm i tw-react`.
 const Widget: typeof ReactWidgetType = require('$:/plugins/linonetwo/tw-react/widget.js').widget;
 import type * as ReactType from 'react';
 type ReactType = typeof ReactType;

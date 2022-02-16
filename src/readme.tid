@@ -2,4 +2,58 @@ title: $:/plugins/linonetwo/tw-react/readme
 creator: LinOnetwo
 type: text/vnd.tiddlywiki
 
+!! Example
+
+```tid
 <$likeButtonExampleWidget stateTiddler="$:/state/tw-react/readme/like-button" />
+```
+
+<$likeButtonExampleWidget stateTiddler="$:/state/tw-react/readme/like-button" />
+
+It keeps its state via a state tiddler, and title of state tiddler is pass-in using `getProps = () => ({ stateTiddler: this.getAttribute('stateTiddler') });`, so `stateTiddler` attribute is passed from widget parameter to the React props.
+
+See [[$:/plugins/linonetwo/tw-react/example.ts]] for example.
+
+!! Usage
+
+!!! Using Typescript
+
+# use [[TW5-Typed|https://github.com/tiddly-gittly/TW5-Typed]] for basic tw types, see its readme for install instruction
+# install `tw-react` package via `npm i tw-react`, and import the type by `import type { ReactWidget } from 'tw-react';`
+
+Use the type:
+
+```js
+import type { ReactWidget } from 'tw-react';
+
+const Widget = require('$:/plugins/linonetwo/tw-react/widget.js').widget as typeof ReactWidget;
+
+class YourWidget extends Widget {
+  reactComponent = SomeReactComponent;
+  getProps = () => {
+    return {
+      stateTiddler: this.getAttribute('stateTiddler'),
+      // ... other props for your react component
+    };
+  };
+}
+```
+
+!!! Props
+
+Anything returned from `getProps` method will pass to react component, passing `stateTiddler` is a good idea, but is not mandatory.
+
+For example, this is what I returned in my `linonetwo/smart-form` plugin:
+
+```js
+getProps = () => {
+    const currentTiddler = this.getAttribute('tiddler', this.getVariable('currentTiddler'));
+    // with lots of filter running and data transforms...
+    return {
+      schema,
+      formData,
+      children: null,
+      onChange,
+    };
+  };
+```
