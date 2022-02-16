@@ -16,6 +16,24 @@ See [[$:/plugins/linonetwo/tw-react/example.ts]] for example.
 
 !! Usage
 
+!!! Require and externalize 'react', 'react-dom'
+
+Please make sure to externalize them, for example in the [[RollUp|https://rollupjs.org/]]:
+
+```json
+{
+  external: ['react', 'react-dom']
+}
+```
+
+Otherwise you will get [[You might have more than one copy of React in the same app|https://reactjs.org/docs/error-decoder.html/?invariant=321]] error.
+
+And use the subclass of Widget provided by this plugin:
+
+```
+const Widget = require('$:/plugins/linonetwo/tw-react/widget.js').widget
+```
+
 !!! Using Typescript
 
 # use [[TW5-Typed|https://github.com/tiddly-gittly/TW5-Typed]] for basic tw types, see its readme for install instruction
