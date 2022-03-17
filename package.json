@@ -2,7 +2,7 @@
   "description": "npm scripts to build plugins",
   "license": "MIT",
   "name": "tw-react",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "url": "https://github.com/tiddly-gittly/tw-react",
   "author": "Lin Onetwo",
   "types": "dist/lib/widget.d.ts",
@@ -32,7 +32,7 @@
     "rollup-plugin-disable-packages": "^4.0.1",
     "tiddlywiki": "^5.2.1",
     "tslib": "^2.3.1",
-    "tw5-typed": "^0.1.4",
+    "tw5-typed": "^0.1.11",
     "typescript": "^4.5.5",
     "zx": "^4.3.0"
   },

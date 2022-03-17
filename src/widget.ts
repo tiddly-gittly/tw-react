@@ -2,7 +2,7 @@ import type * as ReactType from 'react';
 type ReactType = typeof ReactType;
 import type * as ReactDomType from 'react-dom';
 type ReactDomType = typeof ReactDomType;
-import type { Widget as IWidget } from 'tiddlywiki'
+import type { Widget as IWidget, IChangedTiddlers } from 'tiddlywiki';
 
 const Widget = require('$:/core/modules/widgets/widget.js').widget as typeof IWidget;
 const ReactDom: ReactDomType = require('react-dom');
@@ -11,6 +11,11 @@ const React: ReactType = require('react');
 export class ReactWidget extends Widget {
   constructor(parseTreeNode: any, options: any) {
     super(parseTreeNode, options);
+  }
+
+  refresh(changedTiddlers: IChangedTiddlers) {
+    // we don't need to refresh mount point of react-dom
+    return false;
   }
 
   protected reactComponent:
