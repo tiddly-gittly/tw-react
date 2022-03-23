@@ -6,7 +6,15 @@ const distDir = path.join(__dirname, '..', 'dist');
 const nodejsPluginOutDir = path.join(distDir, 'plugins', 'linonetwo', 'tw-react');
 const distDevDir = path.join(nodejsPluginOutDir, 'plugins', 'linonetwo', 'tw-react-dev');
 // cross platform cp -r ${repoDir}/src/ ${nodejsPluginOutDir}/
-await Promise.all([fs.copy(path.join(repoDir, 'src'), nodejsPluginOutDir), fs.copy(path.join(repoDir, 'src'), distDevDir)]);
+const copyOptions = {
+  filter: (src, dest) => {
+    if (!src.endsWith('.ts')) {
+      // Return true to copy the item
+      return true;
+    }
+  },
+};
+await Promise.all([fs.copy(path.join(repoDir, 'src'), nodejsPluginOutDir, copyOptions), fs.copy(path.join(repoDir, 'src'), distDevDir, copyOptions)]);
 
 // zip folder for nodejs wiki
 /**
@@ -31,5 +39,4 @@ function zipDirectory(source, out) {
 
 const outPath = path.join(__dirname, '..', 'plugins.zip');
 await zipDirectory(path.join(__dirname, '..', 'dist'), outPath);
-await fs.mkdir(path.join(__dirname, '..', 'dist', 'out'));
 await fs.move(outPath, path.join(distDir, 'out', 'plugins.zip'));
