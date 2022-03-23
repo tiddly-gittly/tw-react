@@ -1,5 +1,3 @@
-const { fs } = require('zx');
-
 const version = '17';
 const [reactDev, reactDomDev, react, reactDom] = await Promise.all([
   fetch(`https://unpkg.com/react@${version}/umd/react.development.js`).then((r) => r.text()),

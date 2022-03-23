@@ -2,7 +2,7 @@
   "description": "npm scripts to build plugins",
   "license": "MIT",
   "name": "tw-react",
-  "version": "0.0.10",
+  "version": "0.1.4",
   "url": "https://github.com/tiddly-gittly/tw-react",
   "author": "Lin Onetwo",
   "types": "dist/lib/widget.d.ts",
