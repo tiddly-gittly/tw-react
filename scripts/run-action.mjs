@@ -10,8 +10,8 @@ const options = RunOptions.create()
     minify: true,
     source: ['dist/plugins/linonetwo/tw-react'],
     output: 'dist/out',
-    'uglifyjs-options': { warnings: false, ie8: false, safari10: false },
-    'cleancss-options': { compatibility: '*', level: 2 },
+    'uglifyjs-options': '{ "warnings": false, "ie8": false, "safari10": false }',
+    'cleancss-options': '{ "compatibility": "*", "level": 2 }',
   })
   // Internally, runner will fake a json file to be picked by @actions/github
   .setGithubContext({ payload: { push: { tags: ['v0.1.1'] } } })
