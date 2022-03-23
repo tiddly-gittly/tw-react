@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "make": "npm run clean && npm run download-react && npm run build",
-    "dev": "npm run build && npm run run-action",
+    "dev": "npm run clean && npm run build && npm run run-action",
     "clean": "rm -rf ./dist",
     "download-react": "zx scripts/download-react.mjs",
     "build": "rollup -c && zx scripts/after-build.mjs",
@@ -20,22 +20,22 @@
     "prepublishOnly": "npm run make && tsc --emitDeclarationOnly"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-commonjs": "^21.0.2",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.1.3",
-    "@rollup/plugin-typescript": "^8.3.0",
+    "@rollup/plugin-typescript": "^8.3.1",
     "@types/pinyin": "^2.10.0",
-    "@types/react": "^17.0.38",
-    "@types/react-dom": "^17.0.11",
+    "@types/react": "^17.0.41",
+    "@types/react-dom": "^17.0.14",
     "archiver": "^5.3.0",
     "github-action-ts-run-api": "^2.0.0",
-    "rollup": "^2.67.0",
+    "rollup": "^2.70.1",
     "rollup-plugin-disable-packages": "^4.0.1",
     "tiddlywiki": "^5.2.1",
     "tslib": "^2.3.1",
-    "tw5-typed": "^0.1.11",
-    "typescript": "^4.5.5",
-    "zx": "^4.3.0"
+    "tw5-typed": "^0.1.12",
+    "typescript": "^4.6.2",
+    "zx": "^6.0.7"
   },
   "dependencies": {
     "react": "^17.0.2",
