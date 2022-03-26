@@ -3,4 +3,10 @@ type: text/vnd.tiddlywiki
 
 {{$:/snippets/minilanguageswitcher}}
 
-Some readme here.
+```tid
+<$likeButtonExampleWidget stateTiddler="$:/state/tw-react/readme/like-button" />
+```
+
+<$likeButtonExampleWidget stateTiddler="$:/state/tw-react/readme/like-button" />
+
+[[Readme|$:/plugins/linonetwo/tw-react/readme]]
