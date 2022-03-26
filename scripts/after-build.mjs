@@ -4,6 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import archiver from 'archiver';
+import { fs } from 'zx';
 
 const pluginInfo = fs.readJsonSync('src/plugin.info');
 const [_, __, author, name] = pluginInfo.title.split('/');
@@ -22,6 +23,8 @@ const copyOptions = {
   },
 };
 await fs.copy(path.join(repoDir, 'src'), nodejsPluginOutDir, copyOptions);
+// copy jsx-runtime to fix esbuild external all react/* issue. Works along side esbuild.react_jsx-runtime.config.mjs
+await fs.copy(path.join(repoDir, 'node_modules/react/cjs/react-jsx-runtime.production.min.js'), path.join(nodejsPluginOutDir, 'jsx-runtime.js'));
 
 // zip folder for nodejs wiki
 /**
