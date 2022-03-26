@@ -18,7 +18,8 @@ const result = await esbuild.build({
   write: false,
   entryPoints: packageJSON.tsFiles.map((tsFileName) => `./src/${tsFileName}.ts`),
   bundle: true,
-  minify: !!process.env.CI,
+  // let tiddly-gittly/tw5-plugin-packer minify it, and let our fix of `module exports` works
+  minify: false,
   outdir: `./dist/plugins/${author}/${name}`,
   sourcemap: process.env.CI ? false : 'inline',
   format: 'cjs',
