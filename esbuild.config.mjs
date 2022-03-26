@@ -18,7 +18,7 @@ const result = await esbuild.build({
   write: false,
   entryPoints: packageJSON.tsFiles.map((tsFileName) => `./src/${tsFileName}.ts`),
   bundle: true,
-  minify: process.env.CI,
+  minify: !!process.env.CI,
   outdir: `./dist/plugins/${author}/${name}`,
   sourcemap: process.env.CI ? false : 'inline',
   format: 'cjs',
