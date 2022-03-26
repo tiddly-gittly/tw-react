@@ -1,20 +1,27 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import archiver from 'archiver';
-import { fs } from 'zx';
+
+const pluginInfo = fs.readJsonSync('src/plugin.info');
+const [_, __, author, name] = pluginInfo.title.split('/');
+const pluginTitle = `${author}/${name}`;
 
 const repoDir = path.join(__dirname, '..');
 const distDir = path.join(__dirname, '..', 'dist');
-const nodejsPluginOutDir = path.join(distDir, 'plugins', 'linonetwo', 'tw-react');
-const distDevDir = path.join(nodejsPluginOutDir, 'plugins', 'linonetwo', 'tw-react-dev');
+const nodejsPluginOutDir = path.join(distDir, 'plugins', author, name);
 // cross platform cp -r ${repoDir}/src/ ${nodejsPluginOutDir}/
 const copyOptions = {
   filter: (src, dest) => {
-    if (!src.endsWith('.ts')) {
+    if (!(src.endsWith('.ts') || src.endsWith('.tsx'))) {
       // Return true to copy the item
       return true;
     }
   },
 };
-await Promise.all([fs.copy(path.join(repoDir, 'src'), nodejsPluginOutDir, copyOptions), fs.copy(path.join(repoDir, 'src'), distDevDir, copyOptions)]);
+await fs.copy(path.join(repoDir, 'src'), nodejsPluginOutDir, copyOptions);
 
 // zip folder for nodejs wiki
 /**
@@ -37,6 +44,8 @@ function zipDirectory(source, out) {
   });
 }
 
-const outPath = path.join(__dirname, '..', 'plugins.zip');
-await zipDirectory(path.join(__dirname, '..', 'dist'), outPath);
-await fs.move(outPath, path.join(distDir, 'out', 'plugins.zip'));
+if (process.env.CI) {
+  const outPath = path.join(__dirname, '..', 'plugins.zip');
+  await zipDirectory(path.join(__dirname, '..', 'dist'), outPath);
+  await fs.move(outPath, path.join(distDir, 'out', 'plugins.zip'));
+}
