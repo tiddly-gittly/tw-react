@@ -5,8 +5,7 @@
     "tiddlywiki/vanilla"
   ],
   "languages": [
-    "zh-Hans",
-    "en"
+    "zh-Hans"
   ],
   "build": {
     "index": [

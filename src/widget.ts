@@ -46,3 +46,4 @@ class ReactWidget extends Widget {
 }
 
 exports.widget = ReactWidget;
+export type IReactWidget = typeof ReactWidget
