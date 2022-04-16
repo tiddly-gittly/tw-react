@@ -7,14 +7,16 @@
   ],
   "license": "MIT",
   "name": "tw-react",
-  "version": "0.2.1",
+  "version": "0.2.4",
   "url": "https://github.com/tiddly-gittly/tw-react",
   "author": "Lin Onetwo",
-  "types": "dist/lib/widget.d.ts",
+  "types": "dist/lib/index.d.ts",
   "files": [
     "dist/output/*.json",
-    "dist/lib/widget.d.ts"
+    "dist/plugins/linonetwo/tw-react/**/*.js",
+    "dist/lib/**/*.d.ts"
   ],
+  "main": "dist/plugins/linonetwo/tw-react/index.js",
   "scripts": {
     "make": "npm run clean && npm run download-react && npm run build",
     "dev-demo": "npm run dev && zx ./scripts/build-demo-html.mjs && cd ./dist/output && serve .",
