@@ -8,7 +8,7 @@ const Widget = require('$:/core/modules/widgets/widget.js').widget as typeof IWi
 const ReactDom: ReactDomType = require('react-dom');
 const React: ReactType = require('react');
 
-export class ReactWidget<P extends {}> extends Widget {
+export class ReactWidget<P extends {} = Record<string, any>> extends Widget {
   constructor(parseTreeNode: any, options: any) {
     super(parseTreeNode, options);
   }
@@ -46,4 +46,4 @@ export class ReactWidget<P extends {}> extends Widget {
 }
 
 exports.widget = ReactWidget;
-export type IReactWidget = typeof ReactWidget
+export type IReactWidget = typeof ReactWidget;
