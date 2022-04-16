@@ -8,7 +8,7 @@ const Widget = require('$:/core/modules/widgets/widget.js').widget as typeof IWi
 const ReactDom: ReactDomType = require('react-dom');
 const React: ReactType = require('react');
 
-class ReactWidget extends Widget {
+export class ReactWidget<P extends {}> extends Widget {
   constructor(parseTreeNode: any, options: any) {
     super(parseTreeNode, options);
   }
@@ -24,7 +24,7 @@ class ReactWidget extends Widget {
     | ReactType.ComponentClass<any>
     | null = null;
 
-  protected getProps: () => any = () => ({});
+  protected getProps: () => P = () => ({} as P);
 
   /**
    * Lifecycle method: Render this widget into the DOM
