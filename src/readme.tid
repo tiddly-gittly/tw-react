@@ -75,3 +75,32 @@ getProps = () => {
     };
   };
 ```
+
+!!! React Hooks
+
+We provided some hooks for reactive data management with tw data source. You can import them from the `tw-react` package.
+
+```ts
+import { useFilter } from 'tw-react'
+```
+
+You can't import them from plugin's file, because they are optional, so only included in the npm package, not in the plugin json bundle.
+
+!!!! useFilter
+
+Get list of titles from a filter.
+
+```ts
+const titles = useFilter('[all[]tag[Index]]');
+```
+
+The second parameter is an optional dependencies list, you can use it to trigger re-calculate. Otherwise it only rerun filter when filter text changes.
+
+```ts
+const [toggle, setToggle] = useState(false);
+const titles = useFilter('[all[]tag[Index]]', [toggle]);
+
+...
+
+<Button onClick={() => setToggle(!toggle)}>Trigger refresh</Button>
+```
