@@ -71,7 +71,7 @@
     "typesync": "0.9.0",
     "zx": "6.1.0"
   },
-  "optionalDependencies": {
+  "peerDependencies": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   }
