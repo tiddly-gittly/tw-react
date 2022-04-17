@@ -7,6 +7,7 @@
  * Run github action that packs JSON plugin
  */
 import { RunOptions, RunTarget } from 'github-action-ts-run-api';
+import { fs } from 'zx';
 
 const pluginInfo = fs.readJsonSync('src/plugin.info');
 const [_, __, author, name] = pluginInfo.title.split('/');
@@ -28,3 +29,7 @@ const options = RunOptions.create()
   .setFakeFsOptions({ rmFakedTempDirAfterRun: false });
 
 await target.run(options);
+await target.run(options.setInputs({ source: [`dist/plugins/${pluginTitle}-dev`], output: 'dist/out-dev' }));
+
+const distDir = path.join(__dirname, '..', 'dist');
+await fs.rename(path.join(distDir, 'out-dev', '$__plugins_linonetwo_tw-react.json'), path.join(distDir, 'out', '$__plugins_linonetwo_tw-react-dev.json'));
