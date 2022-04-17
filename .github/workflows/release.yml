@@ -69,6 +69,17 @@ jobs:
           output: 'dist/out'
           uglifyjs-options: '{ "warnings": false, "ie8": false, "safari10": false }'
           cleancss-options: '{ "compatibility": "*", "level": 2 }'
+      # build dev channel
+      - uses: tiddly-gittly/tw5-plugin-packer@v0.0.10
+        with:
+          minify: 'true'
+          # here we read plugin author and name from pluginInfoJSON, and pluginInfoJSON is read in the step above with id `setPluginInfoJSON`
+          source: 'dist/plugins/${{fromJson(steps.setPluginInfoJSON.outputs.pluginInfoJSON).title}}-dev'
+          output: 'dist/out-dev'
+          uglifyjs-options: '{ "warnings": false, "ie8": false, "safari10": false }'
+          cleancss-options: '{ "compatibility": "*", "level": 2 }'
+      - name: mv dev to output
+        run: npx zx ./scripts/mv-dev.mjs
 
       - name: Make Demo Site
         run: npx zx ./scripts/build-demo-html.mjs
