@@ -33,3 +33,4 @@ await target.run(options.setInputs({ source: [`dist/plugins/${pluginTitle}-dev`]
 
 const distDir = path.join(__dirname, '..', 'dist');
 await fs.rename(path.join(distDir, 'out-dev', '$__plugins_linonetwo_tw-react.json'), path.join(distDir, 'out', '$__plugins_linonetwo_tw-react-dev.json'));
+await fs.remove(path.join(distDir, 'out-dev'));
