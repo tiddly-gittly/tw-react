@@ -1,7 +1,8 @@
 import type * as ReactType from 'react';
 type ReactType = typeof ReactType;
 import type * as ReactDomType from 'react-dom';
-type ReactDomType = typeof ReactDomType;
+import type * as ReactDomClientType from 'react-dom/client';
+type ReactDomType = typeof ReactDomType & typeof ReactDomClientType;
 import type { Widget as IWidget, IChangedTiddlers } from 'tiddlywiki';
 
 const Widget = require('$:/core/modules/widgets/widget.js').widget as typeof IWidget;
@@ -39,7 +40,9 @@ export class ReactWidget<P extends {} = Record<string, any>> extends Widget {
     const currentProps = this.getProps();
 
     const containerElement = document.createElement('div');
-    ReactDom.render(React.createElement(this.reactComponent, currentProps), containerElement);
+    const root = ReactDom.createRoot(containerElement);
+    const reactElement = React.createElement(this.reactComponent, currentProps);
+    root.render(reactElement);
     this.domNodes.push(containerElement);
     parent.appendChild(containerElement);
   }
