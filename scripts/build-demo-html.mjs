@@ -14,7 +14,7 @@ const pluginTitle = `${author}/${name}`;
 
 const repoDirectory = path.resolve(__dirname, '..');
 const distDirectory = path.resolve(repoDirectory, 'dist');
-const jsonPluginFileName = `$__plugins_${pluginTitle.replace('/', '_')}.json`;
+const jsonPluginFileName = `$__plugins_${pluginTitle.replace('/', '_')}-dev.json`;
 // copy demo
 await fs.copy(path.join(repoDirectory, 'demo'), distDirectory);
 // copy json plugin
