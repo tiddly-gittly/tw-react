@@ -33,6 +33,12 @@ const result = await esbuild.build({
 });
 
 for (let out of result.outputFiles) {
-  // fix esbuild `module.exports = ` causing library not recognizable
-  await fs.writeFile(out.path, new TextDecoder().decode(out.contents).replace('module.exports = ', ''), 'utf8');
+  let content = new TextDecoder().decode(out.contents);
+  if (out.path.endsWith('plugins/linonetwo/tw-react/index.js')) {
+    // skip
+  } else {
+    // fix esbuild `module.exports = ` causing library not recognizable
+    content = content.replace('module.exports = ', '');
+  }
+  await fs.writeFile(out.path, content, 'utf8');
 }
