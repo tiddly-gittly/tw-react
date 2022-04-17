@@ -14,6 +14,11 @@ const [_, __, author, name] = pluginInfo.title.split('/');
 const pluginTitle = `${author}/${name}`;
 const packageJSON = readJsonSync('package.json');
 
+const distDir = path.join(__dirname, 'dist');
+const devPluginPath = path.join(distDir, 'plugins', author, `${name}-dev`);
+const pluginPath = path.join(distDir, 'plugins', author, name);
+await Promise.all([fs.mkdirp(devPluginPath), fs.mkdirp(pluginPath)]);
+
 const result = await esbuild.build({
   write: false,
   entryPoints: packageJSON.tsFiles.map((tsFileName) => `./src/${tsFileName}.ts`),

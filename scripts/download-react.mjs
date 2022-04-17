@@ -13,7 +13,6 @@ const [reactDev, reactDomDev, react, reactDom] = await Promise.all([
 const distDir = path.join(__dirname, '..', 'dist');
 const devPluginPath = path.join(distDir, 'plugins', author, `${name}-dev`);
 const pluginPath = path.join(distDir, 'plugins', author, name);
-await Promise.all([fs.mkdirp(devPluginPath), fs.mkdirp(pluginPath)]);
 await Promise.all([
   fs.writeFile(path.join(devPluginPath, 'react.js'), reactDev),
   fs.writeFile(path.join(devPluginPath, 'react-dom.js'), reactDomDev),

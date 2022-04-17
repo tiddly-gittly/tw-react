@@ -18,7 +18,7 @@
   ],
   "main": "dist/plugins/linonetwo/tw-react/index.js",
   "scripts": {
-    "make": "npm run clean && npm run download-react && npm run build",
+    "make": "npm run clean && npm run build && npm run download-react",
     "dev-demo": "npm run dev && zx ./scripts/build-demo-html.mjs && cd ./dist/output && serve .",
     "dev": "npm run make && npm run run-action",
     "clean": "rm -rf ./dist",
