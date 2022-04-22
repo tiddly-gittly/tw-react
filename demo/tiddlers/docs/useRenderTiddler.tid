@@ -1,0 +1,41 @@
+title: useRenderTiddler
+type: text/vnd.tiddlywiki
+
+!! Usage example
+
+In your widget, pass your widget to the react props:
+
+```ts
+  getProps = () => {
+    ...
+
+    return { parentWidget: this };
+  };
+```
+
+And pass your widget to the children using context:
+
+```tsx
+import { ParentWidgetContext } from 'tw-react';
+
+...
+
+return (
+  <ParentWidgetContext.Provider value={props.parentWidget}>
+    <YourComponents />
+  </ParentWidgetContext.Provider>
+);
+```
+
+Finally, in a child component, you can access the parent widget using the context, and put rendered dom node to react side using react ref:
+
+```tsx
+import React, { createRef } from 'react';
+import { useRenderTiddler } from 'tw-react';
+
+export function SideBarContent(props: { title: string }): JSX.Element {
+  const tabContentRef = createRef<HTMLDivElement>();
+  useRenderTiddler(props.title, tabContentRef);
+  return <div className="flowtiwi-sidebar-tab-content" ref={tabContentRef} />;
+}
+```

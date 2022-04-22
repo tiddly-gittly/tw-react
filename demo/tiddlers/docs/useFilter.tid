@@ -1,0 +1,12 @@
+title: useFilter
+type: text/vnd.tiddlywiki
+
+!! Usage
+
+```
+const resultTitles: string[] = useFilter('[tag[AAA]]');
+
+// or with dependencies
+
+const resultTitles: string[] = useFilter('[tag[AAA]]', []);
+```

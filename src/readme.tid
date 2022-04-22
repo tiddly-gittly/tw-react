@@ -20,6 +20,12 @@ See [[$:/plugins/linonetwo/tw-react/example.ts]] for example.
 
 !! Usage
 
+!!! React APIs
+
+<$list filter="[tag[ReactAPI]]" />
+
+!! Install
+
 !!! Require and externalize 'react', 'react-dom'
 
 Please make sure to externalize them, for example in the [[RollUp|https://rollupjs.org/]]:
