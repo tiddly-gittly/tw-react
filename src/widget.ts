@@ -10,6 +10,9 @@ const ReactDom: ReactDomType = require('react-dom');
 const React: ReactType = require('react');
 
 export class ReactWidget<P extends {} = Record<string, any>> extends Widget {
+  private root: ReturnType<typeof ReactDom.createRoot> | undefined;
+  private containerElement: HTMLDivElement | undefined;
+
   constructor(parseTreeNode: any, options: any) {
     super(parseTreeNode, options);
   }
@@ -19,6 +22,9 @@ export class ReactWidget<P extends {} = Record<string, any>> extends Widget {
     return false;
   }
 
+  /**
+   * User of tw-react need to assign his react component to this property.
+   */
   protected reactComponent:
     | ReactType.ClassType<any, ReactType.ClassicComponent<any, ReactType.ComponentState>, ReactType.ClassicComponentClass<any>>
     | ReactType.FunctionComponent<any>
@@ -41,12 +47,14 @@ export class ReactWidget<P extends {} = Record<string, any>> extends Widget {
     // TODO: is this useful?
     // this.renderChildren(parent,nextSibling);
 
-    const containerElement = document.createElement('div');
-    const root = ReactDom.createRoot(containerElement);
+    if (this.root === undefined || this.containerElement === undefined) {
+      this.containerElement = document.createElement('div');
+      this.root = ReactDom.createRoot(this.containerElement);
+    }
+    this.domNodes.push(this.containerElement);
+    parent.appendChild(this.containerElement);
     const reactElement = React.createElement(this.reactComponent, currentProps);
-    root.render(reactElement);
-    this.domNodes.push(containerElement);
-    parent.appendChild(containerElement);
+    this.root.render(reactElement);
   }
 }
 
