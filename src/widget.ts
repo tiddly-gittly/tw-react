@@ -32,12 +32,14 @@ export class ReactWidget<P extends {} = Record<string, any>> extends Widget {
    */
   render(parent: Node, nextSibling: Node) {
     this.parentDomNode = parent;
+    this.computeAttributes();
     this.execute();
     if (!this.reactComponent) {
       return;
     }
-    this.computeAttributes();
     const currentProps = this.getProps();
+    // TODO: is this useful?
+    // this.renderChildren(parent,nextSibling);
 
     const containerElement = document.createElement('div');
     const root = ReactDom.createRoot(containerElement);
