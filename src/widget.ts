@@ -49,8 +49,8 @@ export class ReactWidget<
     if (!this.reactComponent) {
       return;
     }
-    const currentProps = this.getProps();
-    if (typeof currentProps === undefined || currentProps === null) {
+    const currentProps = this.getProps() ?? {};
+    if (typeof currentProps.parentWidget === undefined || currentProps.parentWidget === null) {
       currentProps.parentWidget = this;
     }
     // TODO: is this useful?
