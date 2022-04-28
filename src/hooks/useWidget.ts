@@ -13,15 +13,17 @@ export function useWidget(parseTreeNode: IParseTreeNode, containerRef: RefObject
         'Your plugin have a bug: `parentWidget` is undefined, you should use `<ParentWidgetContext.Provider value={props.parentWidget}>`, see tw-react for document.',
       );
     }
-    const newWidgetNode = new $tw.rootWidget.widgetClasses.widget(parseTreeNode, {
-      wiki: $tw.wiki,
-      document /* : typeof document !== 'undefined' ? document : $tw.fakeDocument */,
-      parentWidget,
-      // TODO: possibly not needed, in tw5 code is not needed, but in react context may needed?
-      recursionMarker: 'yes',
-      mode: 'block',
-      importPageMacros: true,
-    });
+    const newWidgetNode = new $tw.rootWidget.widgetClasses.widget(
+      {
+        type: 'widget',
+        children: [parseTreeNode],
+      } as IParseTreeNode,
+      {
+        wiki: $tw.wiki,
+        document /* : typeof document !== 'undefined' ? document : $tw.fakeDocument */,
+        parentWidget,
+      },
+    );
 
     newWidgetNode.render(containerRef.current, null);
     parentWidget.children.push(newWidgetNode);
