@@ -9,7 +9,13 @@ const Widget = require('$:/core/modules/widgets/widget.js').widget as typeof IWi
 const ReactDom: ReactDomType = require('react-dom');
 const React: ReactType = require('react');
 
-export class ReactWidget<P extends {} = Record<string, any>> extends Widget {
+export interface IDefaultWidgetProps {
+  parentWidget?: IWidget;
+}
+export class ReactWidget<
+  IUserProps extends Record<string, any> = {},
+  IProps extends IUserProps & IDefaultWidgetProps = IDefaultWidgetProps & Record<string, any> & any,
+> extends Widget {
   private root: ReturnType<typeof ReactDom.createRoot> | undefined;
   private containerElement: HTMLDivElement | undefined;
 
@@ -31,7 +37,7 @@ export class ReactWidget<P extends {} = Record<string, any>> extends Widget {
     | ReactType.ComponentClass<any>
     | null = null;
 
-  protected getProps: () => P = () => ({} as P);
+  protected getProps: () => IProps = () => ({ parentWidget: this } as unknown as IProps);
 
   /**
    * Lifecycle method: Render this widget into the DOM
@@ -44,6 +50,9 @@ export class ReactWidget<P extends {} = Record<string, any>> extends Widget {
       return;
     }
     const currentProps = this.getProps();
+    if (typeof currentProps === undefined || currentProps === null) {
+      currentProps.parentWidget = this;
+    }
     // TODO: is this useful?
     // this.renderChildren(parent,nextSibling);
 

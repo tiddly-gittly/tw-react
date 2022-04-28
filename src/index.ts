@@ -3,4 +3,4 @@
  * And won't be packaged into the plugin bundle.
  */
 export * from './hooks';
-export type { IReactWidget, ReactWidget } from './widget';
+export type { IReactWidget, ReactWidget, IDefaultWidgetProps } from './widget';
