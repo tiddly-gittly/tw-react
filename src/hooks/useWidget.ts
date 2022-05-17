@@ -17,5 +17,5 @@ export function useWidget(parseTreeNode: IParseTreeNode, containerRef: RefObject
 
     newWidgetNode.render(containerRef.current, null);
     parentWidget.children.push(newWidgetNode);
-  }, [parseTreeNode, containerRef.current]);
+  }, [parseTreeNode, containerRef]);
 }
