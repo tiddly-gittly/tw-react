@@ -9,6 +9,27 @@ const Widget = require('$:/core/modules/widgets/widget.js').widget as typeof IWi
 const ReactDom: ReactDomType = require('react-dom');
 const React: ReactType = require('react');
 
+// TODO: remove this hack after https://github.com/Jermolene/TiddlyWiki5/pull/6699 merged
+/*
+Remove any DOM nodes created by this widget or its children
+*/
+Widget.prototype.removeChildDomNodes = function(parentRemoved) {
+	// If this widget has directly created DOM nodes, delete them and exit. This assumes that any child widgets are contained within the created DOM nodes, which would normally be the case
+	// If parent has already detatch its dom node from the document, we don't need to do it again.
+	if(this.domNodes.length > 0 && !parentRemoved) {
+		$tw.utils.each(this.domNodes,function(domNode) {
+			domNode.parentNode.removeChild(domNode);
+		});
+		this.domNodes = [];
+		// inform child widget to do some custom cleanup in a overrided sub-class method, and tell child widget that parent has already done the update, so children don't need to do anything.
+		parentRemoved = true;
+	}
+	// If parentRemoved is unset or false, will ask the child widgets to delete their DOM nodes
+	$tw.utils.each(this.children,function(childWidget) {
+		childWidget.removeChildDomNodes(parentRemoved);
+	});
+};
+
 export interface IDefaultWidgetProps {
   parentWidget?: IWidget;
 }
@@ -64,6 +85,11 @@ export class ReactWidget<
     parent.appendChild(this.containerElement);
     const reactElement = React.createElement(this.reactComponent, currentProps);
     this.root.render(reactElement);
+  }
+
+  removeChildDomNodes() {
+    super.removeChildDomNodes();
+    this.root?.unmount?.();
   }
 }
 
