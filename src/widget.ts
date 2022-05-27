@@ -37,8 +37,8 @@ export class ReactWidget<
   IUserProps extends Record<string, any> = {},
   IProps extends IUserProps & IDefaultWidgetProps = IDefaultWidgetProps & Record<string, any> & any,
 > extends Widget {
-  private root: ReturnType<typeof ReactDom.createRoot> | undefined;
-  private containerElement: HTMLDivElement | undefined;
+  protected root: ReturnType<typeof ReactDom.createRoot> | undefined;
+  protected containerElement: HTMLDivElement | undefined;
 
   constructor(parseTreeNode: any, options: any) {
     super(parseTreeNode, options);
