@@ -7,7 +7,7 @@
   ],
   "license": "MIT",
   "name": "tw-react",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "url": "https://github.com/tiddly-gittly/tw-react",
   "author": "Lin Onetwo",
   "types": "dist/lib/index.d.ts",

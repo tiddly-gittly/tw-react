@@ -87,9 +87,11 @@ export class ReactWidget<
     this.root.render(reactElement);
   }
 
-  removeChildDomNodes() {
+  removeChildDomNodes(noUnmount?: boolean) {
     super.removeChildDomNodes();
-    this.root?.unmount?.();
+    if (noUnmount !== true) {
+      this.root?.unmount?.();
+    }
   }
 }
 
