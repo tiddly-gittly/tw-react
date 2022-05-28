@@ -13,21 +13,21 @@ const React: ReactType = require('react');
 /*
 Remove any DOM nodes created by this widget or its children
 */
-Widget.prototype.removeChildDomNodes = function(parentRemoved) {
-	// If this widget has directly created DOM nodes, delete them and exit. This assumes that any child widgets are contained within the created DOM nodes, which would normally be the case
-	// If parent has already detatch its dom node from the document, we don't need to do it again.
-	if(this.domNodes.length > 0 && !parentRemoved) {
-		$tw.utils.each(this.domNodes,function(domNode) {
-			domNode.parentNode.removeChild(domNode);
-		});
-		this.domNodes = [];
-		// inform child widget to do some custom cleanup in a overrided sub-class method, and tell child widget that parent has already done the update, so children don't need to do anything.
-		parentRemoved = true;
-	}
-	// If parentRemoved is unset or false, will ask the child widgets to delete their DOM nodes
-	$tw.utils.each(this.children,function(childWidget) {
-		childWidget.removeChildDomNodes(parentRemoved);
-	});
+Widget.prototype.removeChildDomNodes = function (parentRemoved) {
+  // If this widget has directly created DOM nodes, delete them and exit. This assumes that any child widgets are contained within the created DOM nodes, which would normally be the case
+  // If parent has already detatch its dom node from the document, we don't need to do it again.
+  if (this.domNodes.length > 0 && !parentRemoved) {
+    $tw.utils.each(this.domNodes, function (domNode) {
+      domNode.parentNode.removeChild(domNode);
+    });
+    this.domNodes = [];
+    // inform child widget to do some custom cleanup in a overrided sub-class method, and tell child widget that parent has already done the update, so children don't need to do anything.
+    parentRemoved = true;
+  }
+  // If parentRemoved is unset or false, will ask the child widgets to delete their DOM nodes
+  $tw.utils.each(this.children, function (childWidget) {
+    childWidget.removeChildDomNodes(parentRemoved);
+  });
 };
 
 export interface IDefaultWidgetProps {
@@ -63,7 +63,7 @@ export class ReactWidget<
   /**
    * Lifecycle method: Render this widget into the DOM
    */
-  render(parent: Node, nextSibling: Node) {
+  render(parent: Node, nextSibling: Node | null) {
     this.parentDomNode = parent;
     this.computeAttributes();
     this.execute();
@@ -74,7 +74,7 @@ export class ReactWidget<
     if (currentProps.parentWidget === undefined || currentProps.parentWidget === null) {
       currentProps.parentWidget = this;
     }
-    // TODO: is this useful?
+    /** don't need this because we handle the initial render of child widget in the `useWidget` hook */
     // this.renderChildren(parent,nextSibling);
 
     if (this.root === undefined || this.containerElement === undefined) {
@@ -87,11 +87,16 @@ export class ReactWidget<
     this.root.render(reactElement);
   }
 
-  removeChildDomNodes(noUnmount?: boolean) {
+  refreshSelf() {
+    var nextSibling = this.findNextSiblingDomNode();
+    /** don't unmount root if we are just refresh tiddler, not closing it */
+    // this.removeChildDomNodes();
+    this.render(this.parentDomNode, nextSibling);
+  }
+
+  removeChildDomNodes() {
     super.removeChildDomNodes();
-    if (noUnmount !== true) {
-      this.root?.unmount?.();
-    }
+    this.root?.unmount?.();
   }
 }
 
