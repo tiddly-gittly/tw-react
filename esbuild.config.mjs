@@ -21,7 +21,7 @@ await Promise.all([fs.mkdirp(devPluginPath), fs.mkdirp(pluginPath)]);
 
 const result = await esbuild.build({
   write: false,
-  entryPoints: packageJSON.tsFiles.map((tsFileName) => `./src/${tsFileName}.ts`),
+  entryPoints: [...packageJSON.tsFiles.map((tsFileName) => `./src/${tsFileName}.ts`), ...packageJSON.tsxFiles.map((tsFileName) => `./src/${tsFileName}.tsx`)],
   bundle: true,
   // let tiddly-gittly/tw5-plugin-packer minify it, and let our fix of `module exports` works
   minify: false,

@@ -8,6 +8,11 @@ import type { Widget as IWidget, IChangedTiddlers } from 'tiddlywiki';
 const Widget = require('$:/core/modules/widgets/widget.js').widget as typeof IWidget;
 const ReactDom: ReactDomType = require('react-dom');
 const React: ReactType = require('react');
+if (typeof window !== 'undefined') {
+  window.React = React;
+} else if (typeof global !== 'undefined') {
+  global.React = React;
+}
 
 // TODO: remove this hack after https://github.com/Jermolene/TiddlyWiki5/pull/6699 merged
 /*

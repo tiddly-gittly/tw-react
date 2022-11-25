@@ -2,8 +2,10 @@
   "description": "npm scripts to build plugins",
   "tsFiles": [
     "widget",
-    "example",
     "index"
+  ],
+  "tsxFiles": [
+    "example"
   ],
   "license": "MIT",
   "name": "tw-react",

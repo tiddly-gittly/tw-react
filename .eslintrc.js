@@ -103,6 +103,7 @@ module.exports = {
     'standard',
     'plugin:security/recommended',
     'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
     'plugin:unicorn/recommended',
     'plugin:prettier/recommended',
     'standard-with-typescript',

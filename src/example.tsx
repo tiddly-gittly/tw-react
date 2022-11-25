@@ -4,6 +4,7 @@ const Widget = (require('$:/plugins/linonetwo/tw-react/widget.js') as { widget: 
 import type * as ReactType from 'react';
 type ReactType = typeof ReactType;
 import type * as ReactDomType from 'react-dom';
+import { ExampleFunction } from './exampleFunction';
 type ReactDomType = typeof ReactDomType;
 
 // you should set these to external in your build tool like `external: ['$:/*', 'react', 'react-dom'],`
@@ -44,7 +45,11 @@ class LikeButton extends React.Component<IProps, IState> {
       return 'You liked this.';
     }
 
-    return e('button', { onClick: () => this.setState({ liked: true }) }, 'Like');
+    return (
+      <button onClick={() => this.setState({ liked: true })}>
+        Like <ExampleFunction />
+      </button>
+    );
   }
 }
 
