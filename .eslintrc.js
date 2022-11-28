@@ -13,7 +13,7 @@ module.exports = {
   },
   settings: {
     react: {
-      version: '17.0.2',
+      version: '18.2.0',
     },
     'import/resolver': {
       node: {
@@ -25,7 +25,6 @@ module.exports = {
       alias: {
         map: [
           ['@', './src'],
-          ['@services', './src/services'],
         ],
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
