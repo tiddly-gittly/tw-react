@@ -18,6 +18,7 @@ if (typeof window !== 'undefined') {
 /*
 Remove any DOM nodes created by this widget or its children
 */
+// @ts-expect-error Type '(parentRemoved: boolean) => void' is not assignable to type '() => void'.ts(2322)
 Widget.prototype.removeChildDomNodes = function (parentRemoved: boolean) {
   // If this widget has directly created DOM nodes, delete them and exit. This assumes that any child widgets are contained within the created DOM nodes, which would normally be the case
   // If parent has already detatch its dom node from the document, we don't need to do it again.
@@ -31,6 +32,7 @@ Widget.prototype.removeChildDomNodes = function (parentRemoved: boolean) {
   }
   // If parentRemoved is unset or false, will ask the child widgets to delete their DOM nodes
   $tw.utils.each(this.children, function (childWidget) {
+    // @ts-expect-error Expected 0 arguments, but got 1.ts(2554)
     childWidget?.removeChildDomNodes(parentRemoved);
   });
 };

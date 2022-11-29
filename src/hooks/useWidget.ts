@@ -1,15 +1,17 @@
+/* eslint-disable security-node/detect-insecure-randomness */
 import { RefObject, useContext, useEffect } from 'react';
 import { IParseTreeNode } from 'tiddlywiki';
 import { ParentWidgetContext } from './context';
 
 interface IOptions {
-  /** do cleanup before render, default to false to save performance */
-  cleanup?: boolean;
+  /** skip rendering for this time useEffect executes */
+  skip?: boolean;
 }
-export function useWidget(parseTreeNode: IParseTreeNode, containerRef: RefObject<HTMLDivElement>, options?: IOptions) {
+export function useWidget(parseTreeNode: IParseTreeNode, containerReference: RefObject<HTMLDivElement>, options?: IOptions) {
   const parentWidget = useContext(ParentWidgetContext);
   useEffect(() => {
-    if (containerRef.current === null) {
+    const domNode = containerReference.current;
+    if (domNode === null) {
       return;
     }
     if (parentWidget === undefined) {
@@ -17,12 +19,21 @@ export function useWidget(parseTreeNode: IParseTreeNode, containerRef: RefObject
         'Your plugin have a bug: `parentWidget` is undefined, you should use `<ParentWidgetContext.Provider value={props.parentWidget}>`, see tw-react for document.',
       );
     }
-    const newWidgetNode = parentWidget.makeChildWidget(parseTreeNode, {});
-
-    if (options?.cleanup) {
-      containerRef.current.textContent = '';
+    if (options?.skip === true) {
+      return;
     }
-    newWidgetNode.render(containerRef.current, null);
+    const id = String(Math.random());
+    const newWidgetNode = parentWidget.makeChildWidget(parseTreeNode, { variables: { 'use-widget-id': id } });
+
+    // eslint-disable-next-line unicorn/no-null
+    newWidgetNode.render(domNode, null);
     parentWidget.children.push(newWidgetNode);
-  }, [parseTreeNode, containerRef]);
+    return () => {
+      parentWidget.children = parentWidget.children.filter((child) => child.getVariable('use-widget-id') !== id);
+      if (domNode === null) {
+        return;
+      }
+      domNode.textContent = '';
+    };
+  }, [parseTreeNode, containerReference, parentWidget, options?.skip]);
 }
