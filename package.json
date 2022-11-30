@@ -66,6 +66,7 @@
     "fs-extra": "10.1.0",
     "github-action-ts-run-api": "2.3.0",
     "prettier": "2.8.0",
+    "react": "^18.2.0",
     "serve": "14.1.2",
     "tiddlywiki": "5.2.3",
     "tslib": "2.4.1",
