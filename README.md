@@ -6,10 +6,10 @@ See [Website for documentation](https://tiddly-gittly.github.io/tw-react/#%24%3A
 
 ## Products
 
-1. [Smart Form plugin - beta release - Display different form based on the tag you add](https://talk.tiddlywiki.org/t/smart-form-plugin-beta-release-display-different-form-based-on-the-tag-you-add/2417)
-2. [FlowTiwi - a Multi-column draggable resizable sidebar (beta release)](https://talk.tiddlywiki.org/t/flowtiwi-a-multi-column-draggable-resizable-sidebar-beta-release/3128)
-3. [Demo of a new WYSIWYG editor: slate-write (unstable alpha stage)](https://talk.tiddlywiki.org/t/demo-of-a-new-wysiwyg-editor-slate-write-unstable-alpha-stage/2788)
-4. [WhiteBoard plugin](https://talk.tiddlywiki.org/t/whiteboard-plugin-v0-2-3/5302)
+1. [WhiteBoard plugin](https://talk.tiddlywiki.org/t/whiteboard-plugin-v0-2-3/5302)
+2. [Demo of a new WYSIWYG editor: slate-write (unstable alpha stage)](https://talk.tiddlywiki.org/t/demo-of-a-new-wysiwyg-editor-slate-write-unstable-alpha-stage/2788)
+3. [FlowTiwi - a Multi-column draggable resizable sidebar (beta release)](https://talk.tiddlywiki.org/t/flowtiwi-a-multi-column-draggable-resizable-sidebar-beta-release/3128)
+4. [Smart Form plugin - beta release - Display different form based on the tag you add](https://talk.tiddlywiki.org/t/smart-form-plugin-beta-release-display-different-form-based-on-the-tag-you-add/2417)
 
 When installing these plugins from [TiddlyWiki-CPL: TiddlyWiki world of Google App Store! ](https://talk.tiddlywiki.org/t/tiddlywiki-cpl-tiddlywiki-world-of-google-app-store/2140) , this React plugin will be automatically installed as a dependency. So you probably don't need to install this manyally.
 
