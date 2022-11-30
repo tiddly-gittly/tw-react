@@ -2,16 +2,18 @@
 
 [What’s your opinion about using ReactJS in the plugin?](https://talk.tiddlywiki.org/t/whats-your-opinion-about-using-reactjs-in-the-plugin/2191) Sometimes it is inevitable to use ReactJS in the widget, for example, JSONSchemaForm.
 
-## Products
+See [Website for documentation](https://tiddly-gittly.github.io/tw-react/#%24%3A%2Fplugins%2Flinonetwo%2Ftw-react%2Freadme:%24%3A%2Fplugins%2Flinonetwo%2Ftw-react%2Freadme%20Index).
 
-When installing
+## Products
 
 1. [Smart Form plugin - beta release - Display different form based on the tag you add](https://talk.tiddlywiki.org/t/smart-form-plugin-beta-release-display-different-form-based-on-the-tag-you-add/2417)
 2. [FlowTiwi - a Multi-column draggable resizable sidebar (beta release)](https://talk.tiddlywiki.org/t/flowtiwi-a-multi-column-draggable-resizable-sidebar-beta-release/3128)
 3. [Demo of a new WYSIWYG editor: slate-write (unstable alpha stage)](https://talk.tiddlywiki.org/t/demo-of-a-new-wysiwyg-editor-slate-write-unstable-alpha-stage/2788)
 4. [WhiteBoard plugin](https://talk.tiddlywiki.org/t/whiteboard-plugin-v0-2-3/5302)
 
-from [TiddlyWiki-CPL: TiddlyWiki world of Google App Store! ](https://talk.tiddlywiki.org/t/tiddlywiki-cpl-tiddlywiki-world-of-google-app-store/2140) , this React plugin will be automatically installed as a dependency. So you probably don't need to install this manyally.
+When installing these plugins from [TiddlyWiki-CPL: TiddlyWiki world of Google App Store! ](https://talk.tiddlywiki.org/t/tiddlywiki-cpl-tiddlywiki-world-of-google-app-store/2140) , this React plugin will be automatically installed as a dependency. So you probably don't need to install this manyally.
+
+(You can also drag `__plugins_linonetwo_tw-react.json` from [Release · tiddly-gittly/tw-react · GitHub](https://github.com/tiddly-gittly/tw-react/releases/latest). But Don't drag them from above demo sites. Because the ReactJS plugin from those demosite is of dev mode, so size is much larger than the one in the CPL and Github release!)
 
 ## Trouble shotting
 
