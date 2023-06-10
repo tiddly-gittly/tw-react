@@ -23,6 +23,7 @@ export function useWidget(parseTreeNode: IParseTreeNode, containerReference: Ref
       return;
     }
     const id = String(Math.random());
+    // FIXME: this is wrong, see zx-script's latest version
     const newWidgetNode = parentWidget.makeChildWidget(parseTreeNode, { variables: { 'use-widget-id': id } });
 
     // eslint-disable-next-line unicorn/no-null
