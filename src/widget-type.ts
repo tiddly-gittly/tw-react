@@ -31,3 +31,9 @@ export interface IDefaultWidgetProps {
 export type ITWReactUserProps = Record<string, any>;
 export type ITWReactProps = ITWReactUserProps & IDefaultWidgetProps;
 export type ITWReactPropsDefault = IDefaultWidgetProps & Record<string, any> & any;
+
+// TODO: this don't seem to work
+// @ts-expect-error Invalid module name in augmentation, module '$:/plugins/linonetwo/tw-react/widget.js' cannot be found.ts(2664)
+declare module '$:/plugins/linonetwo/tw-react/widget.js' {
+  export const widget: IReactWidgetConstructor;
+}

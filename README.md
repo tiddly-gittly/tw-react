@@ -4,6 +4,17 @@
 
 See [Website for documentation](https://tiddly-gittly.github.io/tw-react/#%24%3A%2Fplugins%2Flinonetwo%2Ftw-react%2Freadme:%24%3A%2Fplugins%2Flinonetwo%2Ftw-react%2Freadme%20Index).
 
+## Usage
+
+Add this to a `type.d.ts` file to your `src/` folder:
+
+```ts
+declare module '$:/plugins/linonetwo/tw-react/widget.js' {
+  import { IReactWidgetConstructor } from 'tw-react';
+  const widget: IReactWidgetConstructor;
+}
+```
+
 ## Products
 
 1. [WhiteBoard plugin](https://talk.tiddlywiki.org/t/whiteboard-plugin-v0-2-3/5302)

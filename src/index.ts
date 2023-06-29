@@ -3,4 +3,4 @@
  * And won't be packaged into the plugin bundle.
  */
 export * from './hooks';
-export * from './type';
+export * from './widget-type';

@@ -4,7 +4,7 @@ import type * as ReactDomType from 'react-dom';
 import type * as ReactDomClientType from 'react-dom/client';
 type ReactDomType = typeof ReactDomType & typeof ReactDomClientType;
 import type { IChangedTiddlers } from 'tiddlywiki';
-import type { IReactWidget, ITWReactProps, ITWReactPropsDefault } from './type';
+import type { IReactWidget, ITWReactProps, ITWReactPropsDefault } from './widget-type';
 
 import { widget as Widget } from '$:/core/modules/widgets/widget.js';
 const ReactDom: ReactDomType = require('react-dom');
