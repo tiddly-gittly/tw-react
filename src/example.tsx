@@ -1,6 +1,6 @@
-import type { IReactWidget } from './widget';
+import type { IReactWidgetConstructor } from './type';
 
-const Widget = (require('$:/plugins/linonetwo/tw-react/widget.js') as { widget: IReactWidget }).widget;
+const Widget = (require('$:/plugins/linonetwo/tw-react/widget.js') as { widget: IReactWidgetConstructor }).widget;
 import type * as ReactType from 'react';
 type ReactType = typeof ReactType;
 import type * as ReactDomType from 'react-dom';

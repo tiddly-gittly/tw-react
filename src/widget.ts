@@ -3,9 +3,10 @@ type ReactType = typeof ReactType;
 import type * as ReactDomType from 'react-dom';
 import type * as ReactDomClientType from 'react-dom/client';
 type ReactDomType = typeof ReactDomType & typeof ReactDomClientType;
-import type { Widget as IWidget, IChangedTiddlers } from 'tiddlywiki';
+import type { IChangedTiddlers } from 'tiddlywiki';
+import type { IReactWidget, ITWReactProps, ITWReactPropsDefault } from './type';
 
-const Widget = require('$:/core/modules/widgets/widget.js').widget as typeof IWidget;
+import { widget as Widget } from '$:/core/modules/widgets/widget.js';
 const ReactDom: ReactDomType = require('react-dom');
 const React: ReactType = require('react');
 if (typeof window !== 'undefined') {
@@ -19,11 +20,11 @@ if (typeof window !== 'undefined') {
 Remove any DOM nodes created by this widget or its children
 */
 // @ts-expect-error Type '(parentRemoved: boolean) => void' is not assignable to type '() => void'.ts(2322)
-Widget.prototype.removeChildDomNodes = function (parentRemoved: boolean) {
+Widget.prototype.removeChildDomNodes = function(parentRemoved: boolean) {
   // If this widget has directly created DOM nodes, delete them and exit. This assumes that any child widgets are contained within the created DOM nodes, which would normally be the case
   // If parent has already detatch its dom node from the document, we don't need to do it again.
   if (this.domNodes.length > 0 && !parentRemoved) {
-    $tw.utils.each(this.domNodes, function (domNode) {
+    $tw.utils.each(this.domNodes, function(domNode) {
       domNode?.parentNode?.removeChild(domNode);
     });
     this.domNodes = [];
@@ -31,21 +32,17 @@ Widget.prototype.removeChildDomNodes = function (parentRemoved: boolean) {
     parentRemoved = true;
   }
   // If parentRemoved is unset or false, will ask the child widgets to delete their DOM nodes
-  $tw.utils.each(this.children, function (childWidget) {
+  $tw.utils.each(this.children, function(childWidget) {
     // @ts-expect-error Expected 0 arguments, but got 1.ts(2554)
     childWidget?.removeChildDomNodes(parentRemoved);
   });
 };
 
-export interface IDefaultWidgetProps {
-  parentWidget?: IWidget;
-}
-export class ReactWidget<
-  IUserProps extends Record<string, any> = {},
-  IProps extends IUserProps & IDefaultWidgetProps = IDefaultWidgetProps & Record<string, any> & any,
-> extends Widget {
-  protected root: ReturnType<typeof ReactDom.createRoot> | undefined;
-  protected containerElement: HTMLDivElement | undefined;
+class ReactWidgetImpl<
+  IProps extends ITWReactProps = ITWReactPropsDefault,
+> extends Widget implements IReactWidget<IProps> {
+  root: ReturnType<typeof ReactDom.createRoot> | undefined;
+  containerElement: HTMLDivElement | undefined;
 
   constructor(parseTreeNode: any, options: any) {
     super(parseTreeNode, options);
@@ -59,18 +56,18 @@ export class ReactWidget<
   /**
    * User of tw-react need to assign his react component to this property.
    */
-  protected reactComponent:
+  reactComponent:
     | ReactType.ClassType<any, ReactType.ClassicComponent<any, ReactType.ComponentState>, ReactType.ClassicComponentClass<any>>
     | ReactType.FunctionComponent<any>
     | ReactType.ComponentClass<any>
     | null = null;
 
-  protected getProps: () => IProps = () => ({ parentWidget: this } as unknown as IProps);
+  getProps: () => IProps = () => ({ parentWidget: this } as unknown as IProps);
 
   /**
    * Lifecycle method: Render this widget into the DOM
    */
-  render(parent: Node, nextSibling: Node | null) {
+  render(parent: Element, nextSibling: Element | null) {
     this.parentDomNode = parent;
     this.computeAttributes();
     this.execute();
@@ -107,5 +104,7 @@ export class ReactWidget<
   }
 }
 
-exports.widget = ReactWidget;
-export type IReactWidget = typeof ReactWidget;
+declare var exports: {
+  widget: typeof ReactWidgetImpl;
+};
+exports.widget = ReactWidgetImpl;

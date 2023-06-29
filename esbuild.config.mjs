@@ -31,7 +31,7 @@ const result = await esbuild.build({
   platform: 'browser',
   external: ['$:/*', 'react', 'react-dom'],
   plugins: [
-    esbuildPluginBrowserslist(browserslist('last 2 versions'), {
+    esbuildPluginBrowserslist(browserslist('defaults and supports es6-module'), {
       printUnknownTargets: false,
     }),
   ],
