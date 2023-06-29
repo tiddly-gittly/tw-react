@@ -41,20 +41,23 @@ jobs:
           # end of optional handling for multi line json
           echo "::set-output name=pluginInfoJSON::$content"
 
-      - name: Get npm cache directory
+      - name: Cache dependencies
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: |
+            **/node_modules
+            ~/.pnpm-store
+            ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
             ${{ runner.os }}-node-
 
-      - name: Install dependencies
-        run: npm i --legacy-peer-deps
+      - name: Install Dependencies
+        run: npm install -g pnpm && pnpm install
 
       - name: Make Plugins
-        run: npm run make
+        run: pnpm run make && pnpm run download-react
         env:
           CI: true
           CI_PULL_REQUEST: ${{ github.event_name == 'pull_request' }}

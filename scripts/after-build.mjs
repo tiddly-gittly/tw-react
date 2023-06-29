@@ -16,7 +16,7 @@ const nodejsPluginOutDir = path.join(distDir, 'plugins', author, name);
 const devNodejsPluginOutDir = path.join(distDir, 'plugins', author, `${name}-dev`);
 
 // cross platform cp -r ${repoDir}/src/ ${nodejsPluginOutDir}/
-const copyOptions = {
+const pluginCopyOptions = {
   filter: (src, dest) => {
     if (!(src.endsWith('.ts') || src.endsWith('.tsx'))) {
       // Return true to copy the item
@@ -24,11 +24,11 @@ const copyOptions = {
     }
   },
 };
-await fs.copy(path.join(repoDir, 'src'), nodejsPluginOutDir, copyOptions);
+await fs.copy(path.join(repoDir, 'src'), nodejsPluginOutDir, pluginCopyOptions);
 // copy jsx-runtime to fix esbuild external all react/* issue. Works along side esbuild.react_jsx-runtime.config.mjs
 await fs.copy(path.join(repoDir, 'node_modules/react/cjs/react-jsx-runtime.production.min.js'), path.join(nodejsPluginOutDir, 'jsx-runtime.js'));
 // copy to dev channel
-await fs.copy(nodejsPluginOutDir, devNodejsPluginOutDir, copyOptions);
+await fs.copy(nodejsPluginOutDir, devNodejsPluginOutDir, pluginCopyOptions);
 
 // zip folder for nodejs wiki
 /**
