@@ -4,10 +4,10 @@ const pluginTitle = `${author}/${name}`;
 
 const version = '18';
 const [reactDev, reactDomDev, react, reactDom] = await Promise.all([
-  fetch(`https://unpkg.com/react@${version}/umd/react.development.js`).then((r) => r.text()),
-  fetch(`https://unpkg.com/react-dom@${version}/umd/react-dom.development.js`).then((r) => r.text()),
-  fetch(`https://unpkg.com/react@${version}/umd/react.production.min.js`).then((r) => r.text()),
-  fetch(`https://unpkg.com/react-dom@${version}/umd/react-dom.production.min.js`).then((r) => r.text()),
+  fetch(`https://unpkg.zhimg.com/react@${version}/umd/react.development.js`).then((r) => r.text()),
+  fetch(`https://unpkg.zhimg.com/react-dom@${version}/umd/react-dom.development.js`).then((r) => r.text()),
+  fetch(`https://unpkg.zhimg.com/react@${version}/umd/react.production.min.js`).then((r) => r.text()),
+  fetch(`https://unpkg.zhimg.com/react-dom@${version}/umd/react-dom.production.min.js`).then((r) => r.text()),
 ]);
 
 const distDir = path.join(__dirname, '..', 'dist');
