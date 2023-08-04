@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-null */
 import type * as ReactType from 'react';
 import type * as ReactDomType from 'react-dom';
 import type * as ReactDomClientType from 'react-dom/client';
@@ -44,10 +45,6 @@ class ReactWidgetImpl<
   root: ReturnType<typeof ReactDom.createRoot> | undefined;
   containerElement: HTMLDivElement | undefined;
 
-  constructor(parseTreeNode: any, options: any) {
-    super(parseTreeNode, options);
-  }
-
   refresh(changedTiddlers: IChangedTiddlers) {
     // we don't need to refresh mount point of react-dom
     return false;
@@ -71,7 +68,7 @@ class ReactWidgetImpl<
     this.parentDomNode = parent;
     this.computeAttributes();
     this.execute();
-    if (this.reactComponent == undefined) {
+    if (this.reactComponent === undefined || this.reactComponent === null) {
       return;
     }
     const currentProps = this.getProps() ?? {};
