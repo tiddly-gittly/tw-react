@@ -1,6 +1,10 @@
-import type { IReactWidgetConstructor } from './widget-type';
+import './widget-type';
 
-const Widget = (require('$:/plugins/linonetwo/tw-react/widget.js') as { widget: IReactWidgetConstructor }).widget;
+/**
+ * // use this commonjs syntax if you are NOT using https://github.com/tiddly-gittly/Modern.TiddlyDev
+ * const Widget = (require('$:/plugins/linonetwo/tw-react/widget.js') as { widget: IReactWidgetConstructor }).widget;
+ */
+import { widget as Widget } from '$:/plugins/linonetwo/tw-react/widget.js';
 import type * as ReactType from 'react';
 type ReactType = typeof ReactType;
 import type * as ReactDomType from 'react-dom';
@@ -11,13 +15,11 @@ type ReactDomType = typeof ReactDomType;
 const ReactDom: ReactDomType = require('react-dom');
 const React: ReactType = require('react');
 
-const e = React.createElement;
-
 interface IProps {
   /**
    * Tiddler to contain the serialized JSON component state
    */
-  stateTiddler: string;
+  stateTiddler?: string;
 }
 interface IState {
   liked: boolean;
@@ -28,7 +30,7 @@ class LikeButton extends React.Component<IProps, IState> {
     const defaultState: IState = { liked: false };
     // deserialize state from tiddlywiki
     try {
-      this.state = JSON.parse($tw.wiki.getTiddlerText(this.props.stateTiddler, '{}')) ?? defaultState;
+      this.state = JSON.parse($tw.wiki.getTiddlerText(this.props.stateTiddler ?? '', '{}')) ?? defaultState;
     } catch {
       this.state = defaultState;
     }
@@ -37,6 +39,7 @@ class LikeButton extends React.Component<IProps, IState> {
   setState(nextState: IState) {
     super.setState(nextState);
     // serialize state to tiddlywiki
+    if (this.props.stateTiddler === undefined) return;
     $tw.wiki.setText(this.props.stateTiddler, 'text', undefined, JSON.stringify(nextState));
   }
 
@@ -53,8 +56,11 @@ class LikeButton extends React.Component<IProps, IState> {
   }
 }
 
-class LikeButtonWidget extends Widget {
+class LikeButtonWidget extends Widget<IProps> {
   reactComponent = LikeButton;
   getProps = () => ({ stateTiddler: this.getAttribute('stateTiddler') });
 }
+declare let exports: {
+  likeButtonExampleWidget: typeof Widget<IProps>;
+};
 exports.likeButtonExampleWidget = LikeButtonWidget;
