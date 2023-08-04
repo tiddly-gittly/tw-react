@@ -9,7 +9,7 @@
   ],
   "license": "MIT",
   "name": "tw-react",
-  "version": "0.5.9",
+  "version": "0.6.0",
   "url": "https://github.com/tiddly-gittly/tw-react",
   "author": "Lin Onetwo",
   "types": "dist/lib/index.d.ts",
@@ -32,9 +32,11 @@
     "installType": "typesync"
   },
   "devDependencies": {
+    "@modern-js/tsconfig": "^2.29.0",
     "@types/archiver": "5.3.2",
     "@types/eslint": "8.40.2",
     "@types/fs-extra": "11.0.1",
+    "@types/node": "^20.4.7",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
     "archiver": "5.3.1",
@@ -42,6 +44,7 @@
     "dprint": "^0.37.1",
     "esbuild": "0.18.10",
     "esbuild-plugin-browserslist": "0.8.0",
+    "eslint-config-tidgi": "^1.1.2",
     "fs-extra": "11.1.1",
     "github-action-ts-run-api": "3.0.3",
     "react": "^18.2.0",

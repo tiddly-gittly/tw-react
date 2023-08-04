@@ -1,12 +1,12 @@
 import type * as ReactType from 'react';
-type ReactType = typeof ReactType;
 import type * as ReactDomType from 'react-dom';
 import type * as ReactDomClientType from 'react-dom/client';
-type ReactDomType = typeof ReactDomType & typeof ReactDomClientType;
 import type { IChangedTiddlers } from 'tiddlywiki';
 import type { IReactWidget, ITWReactProps, ITWReactPropsDefault } from './widget-type';
 
 import { widget as Widget } from '$:/core/modules/widgets/widget.js';
+type ReactType = typeof ReactType;
+type ReactDomType = typeof ReactDomType & typeof ReactDomClientType;
 const ReactDom: ReactDomType = require('react-dom');
 const React: ReactType = require('react');
 if (typeof window !== 'undefined') {
@@ -71,7 +71,7 @@ class ReactWidgetImpl<
     this.parentDomNode = parent;
     this.computeAttributes();
     this.execute();
-    if (!this.reactComponent) {
+    if (this.reactComponent == undefined) {
       return;
     }
     const currentProps = this.getProps() ?? {};
@@ -86,13 +86,13 @@ class ReactWidgetImpl<
       this.root = ReactDom.createRoot(this.containerElement);
     }
     this.domNodes.push(this.containerElement);
-    parent.appendChild(this.containerElement);
+    parent.append(this.containerElement);
     const reactElement = React.createElement(this.reactComponent, currentProps);
     this.root.render(reactElement);
   }
 
   refreshSelf() {
-    var nextSibling = this.findNextSiblingDomNode();
+    const nextSibling = this.findNextSiblingDomNode();
     /** don't unmount root if we are just refresh tiddler, not closing it */
     // this.removeChildDomNodes();
     this.render(this.parentDomNode, nextSibling);
@@ -104,7 +104,7 @@ class ReactWidgetImpl<
   }
 }
 
-declare var exports: {
-  widget: typeof ReactWidgetImpl;
+declare let exports: {
+  widget: typeof Widget;
 };
 exports.widget = ReactWidgetImpl;
