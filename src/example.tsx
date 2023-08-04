@@ -6,14 +6,13 @@ import './widget-type';
  */
 import { widget as Widget } from '$:/plugins/linonetwo/tw-react/widget.js';
 import type * as ReactType from 'react';
-type ReactType = typeof ReactType;
 import type * as ReactDomType from 'react-dom';
+import type * as ReactDomClientType from 'react-dom/client';
 import { ExampleFunction } from './exampleFunction';
-type ReactDomType = typeof ReactDomType;
 
 // you should set these to external in your build tool like `external: ['$:/*', 'react', 'react-dom'],`
-const ReactDom: ReactDomType = require('react-dom');
-const React: ReactType = require('react');
+const ReactDom = require('react-dom') as typeof ReactDomType & typeof ReactDomClientType;
+const React = require('react') as typeof ReactType;
 
 interface IProps {
   /**
@@ -30,7 +29,7 @@ class LikeButton extends React.Component<IProps, IState> {
     const defaultState: IState = { liked: false };
     // deserialize state from tiddlywiki
     try {
-      this.state = JSON.parse($tw.wiki.getTiddlerText(this.props.stateTiddler ?? '', '{}')) ?? defaultState;
+      this.state = JSON.parse($tw.wiki.getTiddlerText(this.props.stateTiddler ?? '', '{}')) as IState ?? defaultState;
     } catch {
       this.state = defaultState;
     }
@@ -49,7 +48,11 @@ class LikeButton extends React.Component<IProps, IState> {
     }
 
     return (
-      <button onClick={() => this.setState({ liked: true })}>
+      <button
+        onClick={() => {
+          this.setState({ liked: true });
+        }}
+      >
         Like <ExampleFunction />
       </button>
     );
