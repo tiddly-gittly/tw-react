@@ -6,38 +6,13 @@ import type { IChangedTiddlers } from 'tiddlywiki';
 import type { IReactWidget, ITWReactProps, ITWReactPropsDefault } from './widget-type';
 
 import { widget as Widget } from '$:/core/modules/widgets/widget.js';
-type ReactType = typeof ReactType;
-type ReactDomType = typeof ReactDomType & typeof ReactDomClientType;
-const ReactDom: ReactDomType = require('react-dom');
-const React: ReactType = require('react');
+const ReactDom = require('react-dom') as typeof ReactDomType & typeof ReactDomClientType;
+const React = require('react') as typeof ReactType;
 if (typeof window !== 'undefined') {
   window.React = React;
 } else if (typeof global !== 'undefined') {
   global.React = React;
 }
-
-// TODO: remove this hack after https://github.com/Jermolene/TiddlyWiki5/pull/6699 merged
-/*
-Remove any DOM nodes created by this widget or its children
-*/
-// @ts-expect-error Type '(parentRemoved: boolean) => void' is not assignable to type '() => void'.ts(2322)
-Widget.prototype.removeChildDomNodes = function(parentRemoved: boolean) {
-  // If this widget has directly created DOM nodes, delete them and exit. This assumes that any child widgets are contained within the created DOM nodes, which would normally be the case
-  // If parent has already detatch its dom node from the document, we don't need to do it again.
-  if (this.domNodes.length > 0 && !parentRemoved) {
-    $tw.utils.each(this.domNodes, function(domNode) {
-      domNode?.parentNode?.removeChild(domNode);
-    });
-    this.domNodes = [];
-    // inform child widget to do some custom cleanup in a overrided sub-class method, and tell child widget that parent has already done the update, so children don't need to do anything.
-    parentRemoved = true;
-  }
-  // If parentRemoved is unset or false, will ask the child widgets to delete their DOM nodes
-  $tw.utils.each(this.children, function(childWidget) {
-    // @ts-expect-error Expected 0 arguments, but got 1.ts(2554)
-    childWidget?.removeChildDomNodes(parentRemoved);
-  });
-};
 
 class ReactWidgetImpl<
   IProps extends ITWReactProps = ITWReactPropsDefault,
@@ -47,6 +22,7 @@ class ReactWidgetImpl<
 
   refresh(changedTiddlers: IChangedTiddlers) {
     // we don't need to refresh mount point of react-dom
+    // but you can override this method to do some custom refresh logic
     return false;
   }
 
@@ -61,9 +37,6 @@ class ReactWidgetImpl<
 
   getProps: () => IProps = () => ({ parentWidget: this } as unknown as IProps);
 
-  /**
-   * Lifecycle method: Render this widget into the DOM
-   */
   render(parent: Element, nextSibling: Element | null) {
     this.parentDomNode = parent;
     this.computeAttributes();
@@ -89,14 +62,27 @@ class ReactWidgetImpl<
   }
 
   refreshSelf() {
-    const nextSibling = this.findNextSiblingDomNode();
-    /** don't unmount root if we are just refresh tiddler, not closing it */
-    // this.removeChildDomNodes();
-    this.render(this.parentDomNode, nextSibling);
+    if (this.reactComponent === undefined || this.reactComponent === null) {
+      return;
+    }
+    if (this.root === undefined) {
+      const nextSibling = this.findNextSiblingDomNode();
+      this.render(this.parentDomNode, nextSibling);
+      return;
+    }
+    this.computeAttributes();
+    this.execute();
+    const currentProps = this.getProps() ?? {};
+    if (currentProps.parentWidget === undefined || currentProps.parentWidget === null) {
+      currentProps.parentWidget = this;
+    }
+    const reactElement = React.createElement(this.reactComponent, currentProps);
+    this.root.render(reactElement);
   }
 
-  removeChildDomNodes() {
-    super.removeChildDomNodes();
+  destroy() {
+    // this only works after tiddlywiki 5.3.0
+    super.destroy?.();
     this.root?.unmount?.();
   }
 }
