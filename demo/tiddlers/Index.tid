@@ -7,6 +7,12 @@ type: text/vnd.tiddlywiki
 <$likeButtonExampleWidget stateTiddler="$:/state/tw-react/readme/like-button" />
 ```
 
+Button1:
+
+<$likeButtonExampleWidget stateTiddler="$:/state/tw-react/readme/like-button" />
+
+Button2:
+
 <$likeButtonExampleWidget stateTiddler="$:/state/tw-react/readme/like-button" />
 
 [[Readme|$:/plugins/linonetwo/tw-react/readme]]
