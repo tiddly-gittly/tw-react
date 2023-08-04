@@ -23,7 +23,7 @@ await fs.copy(path.join(repoDir, 'src'), distLibDir, pluginCopyOptions);
 
 // manually add this, otherwise it will be changed by tsc to `/// <reference types="src/type" />` which is totally wrong.
 const distributionIndexFilePath = path.join(distLibDir, './index.d.ts');
-const stringToPrepend = '/// <reference types="type.d.ts" />';
+const stringToPrepend = '/// <reference types="./type.d.ts" />';
 const data = await fs.readFile(distributionIndexFilePath, 'utf8');
 const newData = `${stringToPrepend}\n${data}`;
 await fs.writeFile(distributionIndexFilePath, newData);
