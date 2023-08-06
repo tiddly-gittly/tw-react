@@ -82,6 +82,7 @@ class ReactWidgetImpl<
 
   destroy() {
     // this only works after tiddlywiki 5.3.0
+    this.domNodes = [];
     super.destroy?.();
     this.root?.unmount?.();
   }
