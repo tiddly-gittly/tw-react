@@ -14,6 +14,16 @@ if (typeof window !== 'undefined') {
   global.React = React;
 }
 
+Widget.prototype.removeLocalDomNodes = function() {
+  // If this widget has directly created DOM nodes, delete them and exit.
+  if (this.domNodes.length > 0) {
+    $tw.utils.each(this.domNodes, function(domNode) {
+      domNode?.parentNode?.removeChild?.(domNode);
+    });
+    this.domNodes = [];
+  }
+};
+
 class ReactWidgetImpl<
   IProps extends ITWReactProps = ITWReactPropsDefault,
 > extends Widget implements IReactWidget<IProps> {
@@ -82,7 +92,6 @@ class ReactWidgetImpl<
 
   destroy() {
     // this only works after tiddlywiki 5.3.0
-    this.domNodes = [];
     super.destroy?.();
     this.root?.unmount?.();
   }
