@@ -15,6 +15,12 @@ declare module '$:/plugins/linonetwo/tw-react/widget.js' {
 }
 ```
 
+or in `tsconfig.json` add:
+
+```json
+    "typeRoots" : ["node_modules/@types", "node_modules/tw5-typed", "node_modules/tw-react/dist/lib"],
+```
+
 ## Products
 
 1. [WhiteBoard plugin](https://talk.tiddlywiki.org/t/whiteboard-plugin-v0-2-3/5302)
