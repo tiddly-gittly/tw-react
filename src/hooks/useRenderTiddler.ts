@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-null */
 import { RefObject, useContext, useEffect } from 'react';
 import { ParentWidgetContext } from './context';
 
@@ -40,5 +41,5 @@ export function useRenderTiddler(tiddlerTitle: string, containerReference: RefOb
       }
       domNode.textContent = '';
     };
-  }, [tiddlerTitle, containerReference]);
+  }, [tiddlerTitle, containerReference, parentWidget, options?.skip]);
 }

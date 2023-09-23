@@ -1,13 +1,13 @@
 declare module '$:/plugins/linonetwo/tw-react/widget.js' {
   import type { widget as Widget } from '$:/core/modules/widgets/widget.js';
   import type * as ReactType from 'react';
-  import type * as ReactDomType from 'react-dom';
+  // import type * as ReactDomType from 'react-dom';
   import type * as ReactDomClientType from 'react-dom/client';
 
   export abstract class widget<
     IProps extends ITWReactProps = ITWReactPropsDefault,
   > extends Widget implements IReactWidget<IProps> {
-    root?: ReturnType<ReactDomType['createRoot']> | undefined;
+    root?: ReturnType<ReactDomClientType['createRoot']> | undefined;
     containerElement?: HTMLDivElement | undefined;
     getProps?: () => IProps;
     /**
@@ -19,4 +19,8 @@ declare module '$:/plugins/linonetwo/tw-react/widget.js' {
       | ReactType.ComponentClass<any>
       | null;
   }
+}
+
+declare module '$:/plugins/linonetwo/tw-react/index.js' {
+  export * from 'tw-react';
 }

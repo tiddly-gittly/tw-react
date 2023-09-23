@@ -74,8 +74,8 @@ devDependencies:
     specifier: 0.0.10
     version: 0.0.10
   tw5-typed:
-    specifier: 0.3.9
-    version: 0.3.9
+    specifier: 0.3.10
+    version: 0.3.10
   typescript:
     specifier: 5.1.6
     version: 5.1.6
@@ -2893,6 +2893,7 @@ packages:
   /iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
+    requiresBuild: true
     dependencies:
       safer-buffer: 2.1.2
     dev: true
@@ -3023,7 +3024,7 @@ packages:
     dev: true
 
   /is-extglob@2.1.1:
-    resolution: {integrity: sha1-qIwCU1eR8C7TfHahueqXc8gz+MI=}
+    resolution: {integrity: sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ==}
     engines: {node: '>=0.10.0'}
     dev: true
 
@@ -4229,6 +4230,7 @@ packages:
 
   /safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -4649,8 +4651,8 @@ packages:
       - encoding
     dev: true
 
-  /tw5-typed@0.3.9:
-    resolution: {integrity: sha512-FypE+YbEcpi+1vDg3EZP0jYyPYZLoH5HEDIwBvrWaLa7VhVNcMSZHCuIevZAyEAPnPT94g7gSWI08aVsWLxD7Q==}
+  /tw5-typed@0.3.10:
+    resolution: {integrity: sha512-c/NEOxuiGS75spVzT88BgAQORDg9l9z2g4HWCOmAoVQN27t0B910K4Db7IN5W7PF3BF88Zn4n+tjxqIwuDg2uQ==}
     dependencies:
       '@types/codemirror': 5.60.8
       '@types/echarts': 4.9.18
