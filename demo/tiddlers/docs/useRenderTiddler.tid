@@ -31,7 +31,7 @@ Finally, in a child component, you can access the parent widget using the contex
 
 ```tsx
 import React, { createRef } from 'react';
-import { useRenderTiddler } from 'tw-react';
+import { useRenderTiddler } from '$:/plugins/linonetwo/tw-react/index.js';
 
 export function SideBarContent(props: { title: string }): JSX.Element {
   const tabContentRef = createRef<HTMLDivElement>();

@@ -52,6 +52,7 @@ const Widget = require('$:/plugins/linonetwo/tw-react/widget.js').widget
 Use the type:
 
 ```js
+import { useRenderTiddler } from '$:/plugins/linonetwo/tw-react/index.js';
 import type { ReactWidget } from 'tw-react';
 
 const Widget = require('$:/plugins/linonetwo/tw-react/widget.js').widget as typeof ReactWidget;
@@ -88,10 +89,10 @@ getProps = () => {
 
 !!! React Hooks
 
-We provided some hooks for reactive data management with tw data source. You can import them from the `tw-react` package.
+We provided some hooks for reactive data management with tw data source. You can import them from the `$:/plugins/linonetwo/tw-react/index.js` (Instead of from `tw-react` package, because they already included in the plugin).
 
 ```ts
-import { useFilter } from 'tw-react'
+import { useFilter } from '$:/plugins/linonetwo/tw-react/index.js'
 ```
 
 You can't import them from plugin's file, because they are optional, so only included in the npm package, not in the plugin json bundle.
