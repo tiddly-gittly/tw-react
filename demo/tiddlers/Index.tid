@@ -3,24 +3,4 @@ type: text/vnd.tiddlywiki
 
 {{$:/snippets/minilanguageswitcher}}
 
-```tid
-<$likeButtonExampleWidget stateTiddler="$:/state/tw-react/readme/like-button" />
-```
-
-Button1:
-
-<$likeButtonExampleWidget stateTiddler="$:/state/tw-react/readme/like-button" />
-
-Button2:
-
-<$likeButtonExampleWidget stateTiddler="$:/state/tw-react/readme/like-button" />
-
-State:
-
-{{$:/state/tw-react/readme/like-button}}
-
-Two buttons have shared state [[$:/state/tw-react/readme/like-button]], but not updated when state changed (although you can implement this in the `refresh` method by yourself in your own component), so when you click one, and close this tiddler then reopen it, you will see two buttons have same ''clicked'' state.
-
-`likeButtonExampleWidget` is a class component, it calls a functional component `ExampleFunction` that will use react hook to update self +1 every second.
-
-[[Readme|$:/plugins/linonetwo/tw-react/readme]]
+{{$:/plugins/linonetwo/tw-react/docs/example}}
