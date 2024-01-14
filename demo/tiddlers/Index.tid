@@ -19,6 +19,8 @@ State:
 
 {{$:/state/tw-react/readme/like-button}}
 
-Two buttons have shared state [[$:/state/tw-react/readme/like-button]], but not updated when state changed (you can implement this in the `refresh` method), so when you click one, and close this tiddler then reopen it, you will see two buttons have same ''clicked'' state.
+Two buttons have shared state [[$:/state/tw-react/readme/like-button]], but not updated when state changed (although you can implement this in the `refresh` method by yourself in your own component), so when you click one, and close this tiddler then reopen it, you will see two buttons have same ''clicked'' state.
+
+`likeButtonExampleWidget` is a class component, it calls a functional component `ExampleFunction` that will use react hook to update self +1 every second.
 
 [[Readme|$:/plugins/linonetwo/tw-react/readme]]
