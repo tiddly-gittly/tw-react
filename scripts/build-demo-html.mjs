@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prevent-abbreviations */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
@@ -5,6 +6,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { cd } from 'zx';
 
+if (process.platform === 'win32') {
+  $.prefix = '';
+  $.shell = 'pwsh.exe';
+}
 /**
  * Put plugin into demo folder
  */
