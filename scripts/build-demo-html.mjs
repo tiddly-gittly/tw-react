@@ -38,8 +38,8 @@ const htmlPath = `${distDirectory}/output/index.html`;
 // process.env.TIDDLYWIKI_PLUGIN_PATH = `${distDir}/plugins`;
 
 cd(distDirectory);
-await $`tiddlywiki ${distDirectory} --build externalimages`;
-await $`tiddlywiki ${distDirectory} --build externaljs`;
+await $`tiddlywiki . --build externalimages`;
+await $`tiddlywiki . --build externaljs`;
 // build dll.js and config tw to load it
 // original filename contains invalid char, will cause static server unable to load it
 const htmlContent = fs.readFileSync(htmlPath, 'utf8');
