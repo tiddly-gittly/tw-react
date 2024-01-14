@@ -26,4 +26,4 @@ Two buttons have shared state [[$:/state/tw-react/readme/like-button]], but not 
 
 `likeButtonExampleWidget` is a class component, it calls a functional component `ExampleFunction` that will use react hook to update self +1 every second.
 
-See [[$:/plugins/linonetwo/tw-react/example.ts]] for example.
+See [[example.ts|https://github.com/tiddly-gittly/tw-react/blob/master/src/example.tsx]] and [[exampleFunction.tsx|https://github.com/tiddly-gittly/tw-react/blob/master/src/exampleFunction.tsx]] for example.
