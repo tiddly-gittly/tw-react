@@ -2,13 +2,13 @@ import type { widget as Widget } from '$:/core/modules/widgets/widget.js';
 import type * as ReactType from 'react';
 import type * as ReactDomType from 'react-dom';
 import type * as ReactDomClientType from 'react-dom/client';
-type ReactDomType = typeof ReactDomType & typeof ReactDomClientType;
+export type IReactDomType = typeof ReactDomType & typeof ReactDomClientType;
 
 export interface IReactWidget<
   IProps extends ITWReactProps = ITWReactPropsDefault,
 > extends Widget {
-  root: ReturnType<ReactDomType['createRoot']> | undefined;
   containerElement: HTMLDivElement | undefined;
+  getProps: () => IProps;
 
   /**
    * User of tw-react need to assign his react component to this property.
@@ -19,7 +19,7 @@ export interface IReactWidget<
     | ReactType.ComponentClass<any>
     | null;
 
-  getProps: () => IProps;
+  root: ReturnType<IReactDomType['createRoot']> | undefined;
 }
 export interface IReactWidgetConstructor extends IReactWidget {
   new(parseTreeNode: any, options: any): IReactWidget;
