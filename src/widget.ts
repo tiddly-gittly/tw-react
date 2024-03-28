@@ -72,7 +72,12 @@ class ReactWidgetImpl<
     if (this.root === undefined || this.containerElement === undefined) {
       this.containerElement = document.createElement('div');
       this.root = ReactDom.createRoot(this.containerElement);
-      this.connectionObserver?.observe?.(this.parentDomNode ?? this.containerElement);
+      let domToObserve = this.containerElement;
+      // sometimes parent node isTiddlyWikiFakeDom, we can't use it.
+      if (this.parentDomNode instanceof Node) {
+        domToObserve = this.parentDomNode as HTMLDivElement;
+      }
+      this.connectionObserver?.observe?.(domToObserve);
     }
     this.domNodes.push(this.containerElement);
     nextSibling === null ? parent.append(this.containerElement) : nextSibling.before(this.containerElement);
