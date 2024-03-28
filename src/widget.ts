@@ -72,7 +72,7 @@ class ReactWidgetImpl<
     if (this.root === undefined || this.containerElement === undefined) {
       this.containerElement = document.createElement('div');
       this.root = ReactDom.createRoot(this.containerElement);
-      this.connectionObserver.observe(this.parentDomNode);
+      this.connectionObserver?.observe?.(this.parentDomNode ?? this.containerElement);
     }
     this.domNodes.push(this.containerElement);
     nextSibling === null ? parent.append(this.containerElement) : nextSibling.before(this.containerElement);
