@@ -80,7 +80,11 @@ class ReactWidgetImpl<
       this.connectionObserver?.observe?.(domToObserve);
     }
     this.domNodes.push(this.containerElement);
-    nextSibling === null ? parent.append(this.containerElement) : nextSibling.before(this.containerElement);
+    try {
+      parent.insertBefore(this.containerElement, nextSibling);
+    } catch (error) {
+      console.warn(`Error while inserting dom node in react widget, this might be cause by use transclude widget for the wikitext contains widget.`, error);
+    }
     const reactElement = React.createElement(this.reactComponent, currentProps);
     this.root.render(reactElement);
   }
