@@ -1,10 +1,10 @@
 /* eslint-disable unicorn/no-null */
+import { ConnectionObserver } from '@wessberg/connection-observer';
 import type * as ReactType from 'react';
 import type * as ReactDomType from 'react-dom';
 import type * as ReactDomClientType from 'react-dom/client';
-import type { IChangedTiddlers } from 'tiddlywiki';
+import type { IChangedTiddlers, IParseTreeNode, IWidgetInitialiseOptions } from 'tiddlywiki';
 import type { IReactWidget, ITWReactProps, ITWReactPropsDefault } from './widget-type';
-import { ConnectionObserver } from '@wessberg/connection-observer';
 
 import { widget as Widget } from '$:/core/modules/widgets/widget.js';
 const ReactDom = require('react-dom') as typeof ReactDomType & typeof ReactDomClientType;
@@ -20,15 +20,23 @@ class ReactWidgetImpl<
 > extends Widget implements IReactWidget<IProps> {
   root: ReturnType<typeof ReactDom.createRoot> | undefined;
   containerElement: HTMLDivElement | undefined;
+  connectionObserver: ConnectionObserver | undefined;
 
-  connectionObserver = new ConnectionObserver(entries => {
-    for (const { connected } of entries) {
-      if (!connected) {
-        this.destroy();
-        this.connectionObserver?.disconnect?.();
-      }
+  constructor(parseTreeNode: IParseTreeNode, options?: IWidgetInitialiseOptions | undefined) {
+    super(parseTreeNode, options);
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (!$tw.browser) {
+      return;
     }
-  });
+    this.connectionObserver = new ConnectionObserver(entries => {
+      for (const { connected } of entries) {
+        if (!connected) {
+          this.destroy();
+          this.connectionObserver?.disconnect?.();
+        }
+      }
+    });
+  }
 
   refresh(changedTiddlers: IChangedTiddlers) {
     // we don't need to refresh mount point of react-dom
@@ -67,7 +75,7 @@ class ReactWidgetImpl<
       this.connectionObserver.observe(this.parentDomNode);
     }
     this.domNodes.push(this.containerElement);
-    parent.append(this.containerElement);
+    nextSibling === null ? parent.append(this.containerElement) : nextSibling.before(this.containerElement);
     const reactElement = React.createElement(this.reactComponent, currentProps);
     this.root.render(reactElement);
   }

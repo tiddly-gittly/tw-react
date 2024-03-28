@@ -64,5 +64,10 @@
   },
   "dependencies": {
     "@wessberg/connection-observer": "^1.0.5"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "@wessberg/connection-observer@1.0.5": "patches/@wessberg__connection-observer@1.0.5.patch"
+    }
   }
 }

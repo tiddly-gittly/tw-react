@@ -4,10 +4,15 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@wessberg/connection-observer@1.0.5':
+    hash: fr7zjraqbqi6pqg33c2znbtaw4
+    path: patches/@wessberg__connection-observer@1.0.5.patch
+
 dependencies:
   '@wessberg/connection-observer':
     specifier: ^1.0.5
-    version: 1.0.5
+    version: 1.0.5(patch_hash=fr7zjraqbqi6pqg33c2znbtaw4)
   react-dom:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
@@ -972,10 +977,11 @@ packages:
       eslint-visitor-keys: 3.4.2
     dev: true
 
-  /@wessberg/connection-observer@1.0.5:
+  /@wessberg/connection-observer@1.0.5(patch_hash=fr7zjraqbqi6pqg33c2znbtaw4):
     resolution: {integrity: sha512-QMo1PN81YCl7vNP4fUSF9CYIkQxBmqZW5SNeU3h5ZHtSRMSWVD14GWQqj6I5iWUPLDMTQyM71ElxKSGo8HTcNA==}
     engines: {node: '>=4.0.0'}
     dev: false
+    patched: true
 
   /@zeit/schemas@2.29.0:
     resolution: {integrity: sha512-g5QiLIfbg3pLuYUJPlisNKY+epQJTcMDsOnVNkscrDP1oi7vmJnzOANYJI/1pZcVJ6umUkBv3aFtlg1UvUHGzA==}

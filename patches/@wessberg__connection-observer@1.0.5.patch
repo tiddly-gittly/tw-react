@@ -1,0 +1,41 @@
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+deleted file mode 100644
+index 8caf391e7549ee0e3b34c975ed1f1696c00daf68..0000000000000000000000000000000000000000
+diff --git a/dist/index.js b/dist/index.js
+index d0b60e342f33ff6fc42536e7b29b6d634e5f2894..dfa9948eb5a67950204cd00e002f1f276669e174 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -1,4 +1,4 @@
+-const ORIGINAL_ATTACH_SHADOW = Element.prototype.attachShadow;
++const ORIGINAL_ATTACH_SHADOW = typeof Element !== 'undefined' ? Element.prototype.attachShadow : undefined;
+ 
+ /**
+  * Returns true if the environment is relying on the ShadyDOM polyfill.
+@@ -18,7 +18,7 @@ function supportsShadowRoots() {
+  */
+ function patchElementPrototypeAttachShadow(callback) {
+     // If Shadow DOM is not available, or if it is based on the ShadyDOM polyfill, there's nothing (or no need) to patch
+-    if (ORIGINAL_ATTACH_SHADOW == null || isShady())
++    if (ORIGINAL_ATTACH_SHADOW == null || isShady() || typeof Element === 'undefined')
+         return;
+     Element.prototype.attachShadow = function (shadowRootInitDict) {
+         const shadowRoot = ORIGINAL_ATTACH_SHADOW.call(this, shadowRootInitDict);
+@@ -329,7 +329,7 @@ const observeRoot = (() => {
+ })();
+ 
+ // Creates a pausable queue and pass document.documentElement as the initial queue payload
+-const rootObserverQueue = createPausableQueue(observeRoot, document.documentElement);
++const rootObserverQueue = createPausableQueue(observeRoot, typeof document !== 'undefined' ? document.documentElement : undefined);
+ 
+ /**
+  * An Observer that tracks the DOM-insertion state of observed nodes across Shadow boundaries.
+@@ -347,6 +347,9 @@ class ConnectionObserver {
+         else if (typeof callback !== "function") {
+             throw new TypeError(`Failed to construct '${ConnectionObserver.name}': The callback provided as parameter 1 is not a function.`);
+         }
++        if (typeof document === 'undefined') {
++            return;
++        }
+         // Add this ConnectionObserver to the Set of ConnectionObservers
+         initializeConnectionObserver(this, callback);
+     }
