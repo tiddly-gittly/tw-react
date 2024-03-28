@@ -4,6 +4,7 @@ import type * as ReactDomType from 'react-dom';
 import type * as ReactDomClientType from 'react-dom/client';
 import type { IChangedTiddlers } from 'tiddlywiki';
 import type { IReactWidget, ITWReactProps, ITWReactPropsDefault } from './widget-type';
+import { ConnectionObserver } from '@wessberg/connection-observer';
 
 import { widget as Widget } from '$:/core/modules/widgets/widget.js';
 const ReactDom = require('react-dom') as typeof ReactDomType & typeof ReactDomClientType;
@@ -14,21 +15,20 @@ if (typeof window !== 'undefined') {
   global.React = React;
 }
 
-Widget.prototype.removeLocalDomNodes = function() {
-  // If this widget has directly created DOM nodes, delete them and exit.
-  if (this.domNodes.length > 0) {
-    $tw.utils.each(this.domNodes, function(domNode) {
-      domNode?.parentNode?.removeChild?.(domNode);
-    });
-    this.domNodes = [];
-  }
-};
-
 class ReactWidgetImpl<
   IProps extends ITWReactProps = ITWReactPropsDefault,
 > extends Widget implements IReactWidget<IProps> {
   root: ReturnType<typeof ReactDom.createRoot> | undefined;
   containerElement: HTMLDivElement | undefined;
+
+  connectionObserver = new ConnectionObserver(entries => {
+    for (const { connected } of entries) {
+      if (!connected) {
+        this.destroy();
+        this.connectionObserver?.disconnect?.();
+      }
+    }
+  });
 
   refresh(changedTiddlers: IChangedTiddlers) {
     // we don't need to refresh mount point of react-dom
@@ -64,6 +64,7 @@ class ReactWidgetImpl<
     if (this.root === undefined || this.containerElement === undefined) {
       this.containerElement = document.createElement('div');
       this.root = ReactDom.createRoot(this.containerElement);
+      this.connectionObserver.observe(this.parentDomNode);
     }
     this.domNodes.push(this.containerElement);
     parent.append(this.containerElement);
@@ -91,8 +92,6 @@ class ReactWidgetImpl<
   }
 
   destroy() {
-    // this only works after tiddlywiki 5.3.0
-    super.destroy?.();
     this.root?.unmount?.();
   }
 }
