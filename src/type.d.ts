@@ -27,5 +27,6 @@ declare module '$:/plugins/linonetwo/tw-react/widget.js' {
 }
 
 declare module '$:/plugins/linonetwo/tw-react/index.js' {
-  export * from 'tw-react';
+  export * from 'tw-react/dist/lib/hooks';
+  export * from 'tw-react/dist/lib/widget-type';
 }
