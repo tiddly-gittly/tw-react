@@ -8,6 +8,8 @@ export interface IReactWidget<
   IProps extends ITWReactProps = ITWReactPropsDefault,
 > extends Widget {
   containerElement: HTMLDivElement | undefined;
+  destroy(): void;
+
   getProps: () => IProps;
 
   /**
@@ -18,7 +20,6 @@ export interface IReactWidget<
     | ReactType.FunctionComponent<any>
     | ReactType.ComponentClass<any>
     | null;
-
   root: ReturnType<IReactDomType['createRoot']> | undefined;
 }
 export interface IReactWidgetConstructor extends IReactWidget {

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/triple-slash-reference */
+/// <reference path="type.d.ts" />
 /**
  * This file exports things that can be imported from $:/plugins/linonetwo/tw-react/index.js
  */
