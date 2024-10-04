@@ -16,7 +16,7 @@ In your widget, pass your widget to the react props:
 And pass your widget to the children using context:
 
 ```tsx
-import { ParentWidgetContext } from 'tw-react';
+import { IDefaultWidgetProps, ParentWidgetContext } from '$:/plugins/linonetwo/tw-react/index.js';
 
 ...
 
