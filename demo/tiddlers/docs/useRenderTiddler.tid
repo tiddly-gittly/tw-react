@@ -21,9 +21,9 @@ import { IDefaultWidgetProps, ParentWidgetContext } from '$:/plugins/linonetwo/t
 ...
 
 return (
-  <ParentWidgetContext.Provider value={props.parentWidget}>
+  <ParentWidgetContext value={props.parentWidget}>
     <YourComponents />
-  </ParentWidgetContext.Provider>
+  </ParentWidgetContext>
 );
 ```
 

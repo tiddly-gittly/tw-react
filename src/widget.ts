@@ -16,11 +16,6 @@ if (typeof window !== 'undefined') {
   global.React = React;
 }
 
-// DEBUG: console ReactDom
-console.log(`ReactDom`, ReactDom);
-// DEBUG: console ReactDomClient
-console.log(`ReactDomClient`, ReactDomClient);
-
 class ReactWidgetImpl<
   IProps extends ITWReactProps = ITWReactPropsDefault,
 > extends Widget implements IReactWidget<IProps> {
@@ -99,7 +94,7 @@ class ReactWidgetImpl<
     if (this.reactComponent === undefined || this.reactComponent === null) {
       return;
     }
-    if (this.root === undefined) {
+    if (this.root === undefined && this.parentDomNode !== undefined) {
       const nextSibling = this.findNextSiblingDomNode();
       this.render(this.parentDomNode, nextSibling);
       return;
@@ -111,7 +106,7 @@ class ReactWidgetImpl<
       currentProps.parentWidget = this;
     }
     const reactElement = React.createElement(this.reactComponent, currentProps);
-    this.root.render(reactElement);
+    this.root?.render?.(reactElement);
   }
 
   destroy() {

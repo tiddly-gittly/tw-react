@@ -16,7 +16,7 @@ export function useWidget(parseTreeNode: IParseTreeNode, containerReference: Ref
     }
     if (parentWidget === undefined) {
       throw new Error(
-        'Your plugin have a bug: `parentWidget` is undefined, you should use `<ParentWidgetContext.Provider value={props.parentWidget}>`, see tw-react for document.',
+        'Your plugin have a bug: `parentWidget` is undefined, you should use `<ParentWidgetContext value={props.parentWidget}>`, see tw-react for document.',
       );
     }
     if (options?.skip === true) {
