@@ -25,8 +25,6 @@ const pluginCopyOptions = {
   },
 };
 await fs.copy(path.join(repoDir, 'src'), nodejsPluginOutDir, pluginCopyOptions);
-// copy jsx-runtime to fix esbuild external all react/* issue. Works along side esbuild.react_jsx-runtime.config.mjs
-await fs.copy(path.join(repoDir, 'node_modules/react/cjs/react-jsx-runtime.production.min.js'), path.join(nodejsPluginOutDir, 'jsx-runtime.js'));
 // copy to dev channel
 await fs.copy(nodejsPluginOutDir, devNodejsPluginOutDir, pluginCopyOptions);
 

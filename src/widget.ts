@@ -8,12 +8,18 @@ import type { IReactWidget, ITWReactProps, ITWReactPropsDefault } from './widget
 
 import { widget as Widget } from '$:/core/modules/widgets/widget.js';
 const ReactDom = require('react-dom') as typeof ReactDomType & typeof ReactDomClientType;
+const ReactDomClient = require('react-dom/client') as typeof ReactDomType & typeof ReactDomClientType;
 const React = require('react') as typeof ReactType;
 if (typeof window !== 'undefined') {
   window.React = React;
 } else if (typeof global !== 'undefined') {
   global.React = React;
 }
+
+// DEBUG: console ReactDom
+console.log(`ReactDom`, ReactDom);
+// DEBUG: console ReactDomClient
+console.log(`ReactDomClient`, ReactDomClient);
 
 class ReactWidgetImpl<
   IProps extends ITWReactProps = ITWReactPropsDefault,
@@ -71,7 +77,7 @@ class ReactWidgetImpl<
 
     if (this.root === undefined || this.containerElement === undefined) {
       this.containerElement = document.createElement('div');
-      this.root = ReactDom.createRoot(this.containerElement);
+      this.root = ReactDomClient.createRoot(this.containerElement);
       let domToObserve = this.containerElement;
       // sometimes parent node isTiddlyWikiFakeDom, we can't use it.
       if (this.parentDomNode instanceof Node) {

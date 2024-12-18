@@ -29,7 +29,7 @@ const result = await esbuild.build({
   sourcemap: process.env.CI ? false : 'inline',
   format: 'cjs',
   platform: 'browser',
-  external: ['$:/*', 'react', 'react-dom'],
+  external: ['$:/*', 'react', 'react-dom', 'react-dom/client'],
   plugins: [
     esbuildPluginBrowserslist(browserslist('defaults and supports es6-module'), {
       printUnknownTargets: false,
