@@ -7,6 +7,8 @@ const pluginTitle = `${author}/${name}`;
 
 // fix ReferenceError: process is not defined
 const fixProcessUndefined = (code) => code.replace('process.env.NODE_ENV', '"development"');
+// prevent collision of name, use a different name. See `src/react-scheduler.js.meta`.
+const fixSchedulerNameCollision = (code) => code.replace('require("scheduler")', 'require("react-scheduler.js")');
 
 const version = '19';
 const reactPath = `node_modules/react/cjs`;
@@ -18,8 +20,8 @@ const [reactDev, react, reactDomDev, reactDom, reactDomClientDev, reactClientDom
   fs.readFile(path.join(reactPath, `react.production.js`), 'utf-8'),
   fs.readFile(path.join(reactDomPath, `react-dom.development.js`), 'utf-8').then(fixProcessUndefined),
   fs.readFile(path.join(reactDomPath, `react-dom.production.js`), 'utf-8'),
-  fs.readFile(path.join(reactDomPath, `react-dom-client.development.js`), 'utf-8').then(fixProcessUndefined),
-  fs.readFile(path.join(reactDomPath, `react-dom-client.production.js`), 'utf-8'),
+  fs.readFile(path.join(reactDomPath, `react-dom-client.development.js`), 'utf-8').then(fixProcessUndefined).then(fixSchedulerNameCollision),
+  fs.readFile(path.join(reactDomPath, `react-dom-client.production.js`), 'utf-8').then(fixSchedulerNameCollision),
   fs.readFile(path.join(reactPath, `react-jsx-runtime.development.js`), 'utf-8').then(fixProcessUndefined),
   fs.readFile(path.join(reactPath, `react-jsx-runtime.production.js`), 'utf-8'),
   fs.readFile(path.join(schedulerPath, `scheduler.development.js`), 'utf-8').then(fixProcessUndefined),
@@ -38,6 +40,6 @@ await Promise.all([
   fs.writeFile(path.join(pluginPath, 'react-dom-client.js'), reactClientDom),
   fs.writeFile(path.join(devPluginPath, 'react-jsx-runtime.js'), reactJsxRuntimeDev),
   fs.writeFile(path.join(pluginPath, 'react-jsx-runtime.js'), reactJsxRuntime),
-  fs.writeFile(path.join(devPluginPath, 'scheduler.js'), schedulerDev),
-  fs.writeFile(path.join(pluginPath, 'scheduler.js'), scheduler),
+  fs.writeFile(path.join(devPluginPath, 'react-scheduler.js'), schedulerDev),
+  fs.writeFile(path.join(pluginPath, 'react-scheduler.js'), scheduler),
 ]);
