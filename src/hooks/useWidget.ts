@@ -7,7 +7,7 @@ interface IOptions {
   /** skip rendering for this time useEffect executes */
   skip?: boolean;
 }
-export function useWidget(parseTreeNode: IParseTreeNode, containerReference: RefObject<HTMLDivElement>, options?: IOptions) {
+export function useWidget(parseTreeNode: IParseTreeNode, containerReference: RefObject<HTMLDivElement | null>, options?: IOptions) {
   const parentWidget = useContext(ParentWidgetContext);
   useEffect(() => {
     const domNode = containerReference.current;
